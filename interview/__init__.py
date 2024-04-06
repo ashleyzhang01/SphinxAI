@@ -10,3 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///{}'.format(db_path)
 from interview.users.routes import users
 
 app.register_blueprint(users)
+
+from interview.behavioral.routes import behavioral
+
+app.register_blueprint(behavioral)

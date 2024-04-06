@@ -12,3 +12,6 @@ Then install the dependencies.
 To run the server in the venv:
 
 `pipenv run flask run`
+
+Create a `.env` file to store the OpenAI API Key with `OPENAI_API_KEY=...`
+Do not upload this to the repository. This has already been added to the `.gitignore`.

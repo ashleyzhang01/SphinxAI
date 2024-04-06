@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from enum import Enum
 from interview import app
 
 
@@ -16,6 +17,22 @@ class User(db.Model):
         }
     def __repr__(self):
         return f"<User {self.username}, id {self.id}, password {self.password}>"
+    
+
+class CategoryEnum(Enum):
+    BEHAVIORAL = 'behavioral'
+    QUANT = 'quant'
+    CONSULTING = 'consulting'
+    FINANCE = 'finance'
+    
+class Question(db.Model):
+    '''Question model'''
+    id = db.Column(db.Integer, primary_key=True)
+    category = db.Column(db.Enum(CategoryEnum), nullable=False)
+    question = db.Column(db.String, nullable=False)
+
+    def __repr__(self):
+        return f"<Category {self.category}, Question {self.question}>"
 
 #from .bootstrap import load_clubs, load_users, test_comments, load_scraped_clubs
 
