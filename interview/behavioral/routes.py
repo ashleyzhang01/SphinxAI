@@ -1,9 +1,9 @@
 from openai import OpenAI
 import os
-from flask import Blueprint, flash, request, redirect, url_for
+from flask import Blueprint, flash, request, redirect, url_for, jsonify
 from werkzeug.utils import secure_filename
 
-from interview.behavioral import ai
+from interview.behavioral import ai, process_transcript_section
 
 behavioral = Blueprint('behavioral', __name__)
 
@@ -34,6 +34,18 @@ def feedback(transcript):
     if request.method == 'POST':
         transcript = request.json 
         
-        about = transcript.get('about')
-        resume = transcript.get('resume')
-        questions = transcript.get('questions')
+        about = transcript.get('about', '')
+        resume = transcript.get('resume', '')
+        questions = transcript.get('questions', '')
+
+        about_feedback = process_transcript_section('about', about)
+        resume_feedback = process_transcript_section('resume', resume)
+        questions_feedback = process_transcript_section('questions', questions)
+
+        feedback_response = {
+            'about_feedback': about_feedback,
+            'resume_feedback': resume_feedback,
+            'questions_feedback': questions_feedback
+        }
+
+        return jsonify(feedback_response)
