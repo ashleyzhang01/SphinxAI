@@ -42,7 +42,6 @@ def generate_behavioral():
         return jsonify(questions_list)
 
 
-
 @behavioral.route('/api/behavioral/feedback', methods=['GET', 'POST'])
 # transcript should be a JSON dict of the 3 different parts
 def feedback():
@@ -63,3 +62,11 @@ def feedback():
             'questions_feedback': questions_feedback
         }
         return jsonify(feedback_response)
+    
+@behavioral.route('/api/behavioral/followup', methods=['POST'])
+def get_followup_question():
+    data = request.json
+    interviewee_response = data.get('response', '')
+    question = data.get('question', '')
+    followup_question = ai.ask_followup(interviewee_response, question)
+    return jsonify(followup_question)

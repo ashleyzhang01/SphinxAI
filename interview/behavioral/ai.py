@@ -38,3 +38,16 @@ def process_transcript_section(section, transcript):
         ]
     )
     return completion.choices[0].message.content
+
+
+def ask_followup(intervieweeResponse, question):
+    """Generates responses given an interviewees response to a question."""
+    client = OpenAI(api_key=API_KEY)
+    completion = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant that asks follow up questions to an interviewees response."},
+            {"role": "user", "content": f'Here is the interviewee\'s response: {intervieweeResponse}, to this question: {question}'}
+        ]
+    )
+    return completion.choices[0].message.content
