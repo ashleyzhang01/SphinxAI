@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 from sqlalchemy.sql.expression import func
 from interview.models import db, Question
 
-from interview.behavioral import ai, process_transcript_section
+from interview.behavioral import ai
 
 behavioral = Blueprint('behavioral', __name__)
 
@@ -16,7 +16,7 @@ UPLOAD_FOLDER = './static/uploads'
 # The application accesses the file from the files dictionary on the request object.
 # use the save() method of the file to save the file permanently somewhere on the filesystem.
 # Should have the resume along with other information for the 
-@behavioral.route('/behavioral', methods=['GET', 'POST'])
+@behavioral.route('/api/behavioral', methods=['GET', 'POST'])
 def generate_behavioral():
     if request.method == 'POST':
         # persona / introduction
@@ -43,7 +43,7 @@ def generate_behavioral():
 
 
 
-@behavioral.route('/behavioral-feedback', methods=['GET', 'POST'])
+@behavioral.route('/api/behavioral/feedback', methods=['GET', 'POST'])
 # transcript should be a JSON dict of the 3 different parts
 def feedback(transcript):
     if request.method == 'POST':
@@ -53,9 +53,9 @@ def feedback(transcript):
         resume = transcript.get('resume', '')
         questions = transcript.get('questions', '')
 
-        about_feedback = process_transcript_section('about', about)
-        resume_feedback = process_transcript_section('resume', resume)
-        questions_feedback = process_transcript_section('questions', questions)
+        about_feedback = ai.process_transcript_section('about', about)
+        resume_feedback = ai.process_transcript_section('resume', resume)
+        questions_feedback = ai.process_transcript_section('questions', questions)
 
         feedback_response = {
             'about_feedback': about_feedback,
