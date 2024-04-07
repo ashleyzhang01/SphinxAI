@@ -45,7 +45,7 @@ def generate_behavioral():
 
 @behavioral.route('/api/behavioral/feedback', methods=['GET', 'POST'])
 # transcript should be a JSON dict of the 3 different parts
-def feedback(transcript):
+def feedback():
     if request.method == 'POST':
         transcript = request.json 
         
