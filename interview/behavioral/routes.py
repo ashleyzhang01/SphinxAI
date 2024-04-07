@@ -62,5 +62,4 @@ def feedback():
             'resume_feedback': resume_feedback,
             'questions_feedback': questions_feedback
         }
-
         return jsonify(feedback_response)

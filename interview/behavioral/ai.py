@@ -33,8 +33,8 @@ def process_transcript_section(section, transcript):
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant analyzing an interview transcript. " +
-             "Provide detailed feedback, suggestions for improvement, and note any use of filler words or poor sentence flow." + section_dict.get(section)},
+             "Provide detailed feedback, suggestions for improvement, and note any use of filler words or poor sentence flow. Be concise but thorough, don't repeat information. " + section_dict.get(section)},
             {"role": "user", "content": f'Here is the transcript of the {section} section of a behavioral interview: {transcript}'}
         ]
     )
-    return completion.choices[0].message
+    return completion.choices[0].message.content
