@@ -25,7 +25,7 @@ def dummy():
 def generate_behavioral():
     if request.method == 'POST':
         # persona / introduction
-        behavioral_qs = db.session.query(Question).filter(Question.category == 'general').order_by(func.random()).limit(3).all()
+        behavioral_qs = db.session.query(Question).filter(Question.category == 'GENERAL').order_by(func.random()).limit(3).all()
         resume_qs = ['Walk me through your resume and tell me about your experiences.']
         if 'file' not in request.files:
             flash('No file part')
