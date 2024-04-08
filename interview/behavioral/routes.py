@@ -45,8 +45,23 @@ def generate_behavioral():
             'questions': ['Do you have any questions for me?']
         }
         return jsonify(questions_list)
+
+@behavioral.route('/api/questionSet/<industry>/<role>', methods=['GET'])
+def get_question_set():
+    industry = request.args.get('industry')
+    role = request.args.get('role')
     
-@behavioral.route('/api/questionSet', methods=['GET'])
+    question_set = Question.query.filter_by(industry=industry, role=role).order_by(func.random()).limit(4).all()
+    
+    if question_set:
+        return jsonify({
+            'industry': question_set.industry,
+            'role': question_set.role,
+            'questions': question_set.questions
+        })
+    else:
+        return jsonify({'message': 'Question set not found'})
+
 
 
 @behavioral.route('/api/behavioral/feedback', methods=['GET', 'POST'])
