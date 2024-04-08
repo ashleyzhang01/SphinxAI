@@ -7,10 +7,8 @@ def import_questions_from_csv():
         for row in reader:
             category = row['Category']
             question = row['Question']
-            print(category)
-            print(question)
-            if not Question.query.filter_by(category=category, question=question).first():
-                new_question = Question(category=category, question=question)
+            if not Question.query.filter_by(category=category.upper(), question=question).first():
+                new_question = Question(category=category.upper(), question=question)
                 db.session.add(new_question)
     
     # add files

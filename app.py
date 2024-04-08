@@ -6,12 +6,12 @@ import requests
 @app.route("/")
 def index():
     question_samples = {
-          "general": Question.query.filter_by(category='general').first(),
-          "general_count": Question.query.filter_by(category='general').count(),
-          "investment_banking": Question.query.filter_by(category='investment_banking').first(),
-          "banking_count": Question.query.filter_by(category='investment_banking').count(),
-          "consulting": Question.query.filter_by(category='consulting').first(),
-          "consulting_count": Question.query.filter_by(category='consulting').count(),
+          "general": Question.query.filter_by(category='GENERAL').first().question,
+          "general_count": Question.query.filter_by(category='GENERAL').count(),
+          "investment_banking": Question.query.filter_by(category='IB').first().question,
+          "banking_count": Question.query.filter_by(category='IB').count(),
+          "consulting": Question.query.filter_by(category='CONSULTING').first().question,
+          "consulting_count": Question.query.filter_by(category='CONSULTING').count(),
     }
     return question_samples  # Just a simple response for demonstration
 
