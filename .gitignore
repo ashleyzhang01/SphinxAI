@@ -1,4 +1,8 @@
 .env
 .venv
 .idea
+<<<<<<< HEAD
 */**/secrets.toml
+=======
+/Users/kevinlu/hackaithon/streamlitfrontend/.streamlit/secrets.toml
+>>>>>>> b805027 (streamlit edits)
