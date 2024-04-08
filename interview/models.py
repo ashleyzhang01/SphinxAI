@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from enum import Enum
 from interview import app
 
-
 db = SQLAlchemy(app)
     
 class User(db.Model):
@@ -20,10 +19,10 @@ class User(db.Model):
     
 
 class CategoryEnum(Enum):
-    BEHAVIORAL = 'behavioral'
-    QUANT = 'quant'
+    GENERAL = 'general'
+    # QUANT = 'quant'
     CONSULTING = 'consulting'
-    FINANCE = 'finance'
+    IB = 'investment_banking'
     
 class Question(db.Model):
     '''Question model'''

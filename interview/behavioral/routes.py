@@ -12,6 +12,12 @@ behavioral = Blueprint('behavioral', __name__)
 UPLOAD_FOLDER = './static/uploads'
 
 
+#dummy route
+@behavioral.route('/api/behavioral/dummy', methods=['GET'])
+def dummy():
+    return jsonify({'message': 'Hello World!'})
+
+
 # (multipart form) A <form> tag is marked with enctype=multipart/form-data and an <input type=file> is placed in that form.
 # The application accesses the file from the files dictionary on the request object.
 # use the save() method of the file to save the file permanently somewhere on the filesystem.
@@ -20,7 +26,7 @@ UPLOAD_FOLDER = './static/uploads'
 def generate_behavioral():
     if request.method == 'POST':
         # persona / introduction
-        behavioral_qs = db.session.query(Question).filter(Question.category == 'BEHAVIORAL').order_by(func.random()).limit(3).all()
+        behavioral_qs = db.session.query(Question).filter(Question.category == 'general').order_by(func.random()).limit(3).all()
         resume_qs = ['Walk me through your resume and tell me about your experiences.']
         if 'file' not in request.files:
             flash('No file part')
