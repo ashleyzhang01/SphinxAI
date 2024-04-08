@@ -34,6 +34,7 @@ class Question(db.Model):
         return f"<Category {self.category}, Question {self.question}>"
 
 #from .bootstrap import load_clubs, load_users, test_comments, load_scraped_clubs
+from interview.questions import import_questions
 
 with app.app_context():
    db.drop_all()
