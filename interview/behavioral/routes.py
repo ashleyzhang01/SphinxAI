@@ -11,7 +11,6 @@ behavioral = Blueprint('behavioral', __name__)
 
 UPLOAD_FOLDER = './static/uploads'
 
-
 #dummy route
 @behavioral.route('/api/behavioral/dummy', methods=['GET'])
 def dummy():
@@ -46,6 +45,8 @@ def generate_behavioral():
             'questions': ['Do you have any questions for me?']
         }
         return jsonify(questions_list)
+    
+@behavioral.route('/api/questionSet', methods=['GET'])
 
 
 @behavioral.route('/api/behavioral/feedback', methods=['GET', 'POST'])
