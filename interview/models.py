@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from enum import Enum
 from interview import app
 
-
 db = SQLAlchemy(app)
     
 class User(db.Model):
@@ -20,10 +19,10 @@ class User(db.Model):
     
 
 class CategoryEnum(Enum):
-    BEHAVIORAL = 'behavioral'
-    QUANT = 'quant'
+    GENERAL = 'general'
+    # QUANT = 'quant'
     CONSULTING = 'consulting'
-    FINANCE = 'finance'
+    IB = 'investment_banking'
     
 class Question(db.Model):
     '''Question model'''
@@ -35,10 +34,12 @@ class Question(db.Model):
         return f"<Category {self.category}, Question {self.question}>"
 
 #from .bootstrap import load_clubs, load_users, test_comments, load_scraped_clubs
+from interview import import_questions
 
 with app.app_context():
    db.drop_all()
    db.create_all()
+   import_questions.import_questions_from_csv()
     #load_clubs()
     #load_scraped_clubs()
    # load_users()

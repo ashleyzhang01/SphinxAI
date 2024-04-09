@@ -11,6 +11,11 @@ behavioral = Blueprint('behavioral', __name__)
 
 UPLOAD_FOLDER = './static/uploads'
 
+#dummy route
+@behavioral.route('/api/behavioral/dummy', methods=['GET'])
+def dummy():
+    return jsonify({'message': 'Hello World!'})
+
 
 # (multipart form) A <form> tag is marked with enctype=multipart/form-data and an <input type=file> is placed in that form.
 # The application accesses the file from the files dictionary on the request object.
@@ -20,7 +25,7 @@ UPLOAD_FOLDER = './static/uploads'
 def generate_behavioral():
     if request.method == 'POST':
         # persona / introduction
-        behavioral_qs = db.session.query(Question).filter(Question.category == 'BEHAVIORAL').order_by(func.random()).limit(3).all()
+        behavioral_qs = db.session.query(Question).filter(Question.category == 'GENERAL').order_by(func.random()).limit(3).all()
         resume_qs = ['Walk me through your resume and tell me about your experiences.']
         if 'file' not in request.files:
             flash('No file part')
@@ -40,6 +45,23 @@ def generate_behavioral():
             'questions': ['Do you have any questions for me?']
         }
         return jsonify(questions_list)
+
+@behavioral.route('/api/questionSet/<industry>/<role>', methods=['GET'])
+def get_question_set():
+    industry = request.args.get('industry')
+    role = request.args.get('role')
+    
+    question_set = Question.query.filter_by(industry=industry, role=role).order_by(func.random()).limit(4).all()
+    
+    if question_set:
+        return jsonify({
+            'industry': question_set.industry,
+            'role': question_set.role,
+            'questions': question_set.questions
+        })
+    else:
+        return jsonify({'message': 'Question set not found'})
+
 
 
 @behavioral.route('/api/behavioral/feedback', methods=['GET', 'POST'])
