@@ -26,18 +26,24 @@ def submit_technical():
         # if not problem:
         #     return jsonify({'error': 'Problem not found'}), 404
         
+        # execution_code = ""
+        # language_id = get_language_id(problem.language)
+
+        # if language_id == 71:
+        #     execution_code += "from copy import deepcopy\nfrom typing import List, Set\n\n"
+        # elif language_id == 62:
+        #     execution_code += "import java.util.*;\n\n"
         
-        execution_code = "from copy import deepcopy\nfrom typing import List, Set\n\n"
         # execution_code += user_code + '\n\n' + problem.tests
+        execution_code = "import java.util.*;\n" # remove
         execution_code += user_code + '\n\n'
-        execution_code += "answers = [[[['A', '0', '0', '0'], ['A', '0', '0', '0'], ['0', '0', 'B', 'B']], 3],[[['B', '0', '0'], ['0', '0', 'A']], 3],[[['B'], ['A']], 1],[[['0', '0', 'B'], ['A', 'A', '0']], 2],[[['0', 'B'], ['0', '0'], ['A', '0']], 3]]\nfor args in answers:\n\targs = list(args)\n\tcorr_ans = args.pop()\n\tpred_ans = find_min_steps(*deepcopy(args))\n\tassert corr_ans == pred_ans, f'For input {args}, got {pred_ans}, expected {corr_ans}'\nprint('All tests passed')"
+        execution_code += "\nclass Main {\n    public static void main(String[] args) {\n        Solution solution = new Solution();\n    \n        int n1 = 3;\n        int[][] edges1 = {{0, 1}, {0, 2}, {1, 2}};\n        long expected1 = 0;\n        long actual1 = solution.countPairs(n1, edges1);\n        if (actual1 != expected1) {\n            System.out.println(\"Test failed: Expected \" + expected1 + \", but got \" + actual1 + \".\");\n        }\n    \n        int n2 = 7;\n        int[][] edges2 = {{0, 2}, {0, 5}, {2, 4}, {1, 6}, {5, 4}};\n        long expected2 = 14;\n        long actual2 = solution.countPairs(n2, edges2);\n        if (actual2 != expected2) {\n            System.out.println(\"Example failed: Expected \" + expected2 + \", but got \" + actual2 + \".\");\n        }\n        if (actual1 == expected1 && actual2 == expected2) {\n            System.out.println(\"All tests passed\");\n        }\n    }\n}"
         execution_code =  base64.b64encode(execution_code.encode()).decode('utf-8')
         print(execution_code)
-        # language_id = get_language_id(problem.language)
-        language_id = 71
+        language_id = 62 # remove
         result = submit_to_judge0(execution_code, language_id)
         print(result['stdout'])
-        return jsonify({'result': base64.b64decode(result['stdout']).decode('utf-8').strip()})
+        return jsonify({'test_results': base64.b64decode(result['stdout']).decode('utf-8').strip()})
 
 
 def get_language_id(language_enum):
