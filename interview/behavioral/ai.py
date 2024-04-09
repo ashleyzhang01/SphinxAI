@@ -39,7 +39,7 @@ def process_transcript_section(section, eyetrack_score, transcript):
              "Provide detailed feedback, suggestions for improvement, and note any use of filler words or poor sentence flow. Be concise but thorough, don't repeat information. " + 
              + section_dict.get(section)
             #  + f"Also take in the audio score, which measures how well the user confidently spoke, which here is {audio_score}. we want this to be higher approaching 1." //to be implemented when tts and stt implemented
-             + f", and the video score, which detects how confidently the user speaks, which here is {eyetrack_score}, we want this to be higher approaching 1" 
+             + f", and the video score, which detects how confidently the user speaks, which here is {eyetrack_score}, we want this to be higher." 
             },
             {"role": "user", "content": f'Here is the transcript of the {section} section of a behavioral interview: {transcript}'}
         ]

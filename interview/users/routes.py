@@ -68,4 +68,4 @@ def user_logout():
     resp = make_response(jsonify({"logout": "success", "status": "200"}))
     resp.set_cookie('token', '', expires=0)
     return resp
-    
+ 
