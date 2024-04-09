@@ -14,3 +14,7 @@ app.register_blueprint(users)
 from interview.behavioral.routes import behavioral
 
 app.register_blueprint(behavioral)
+
+from interview.technical.routes import technical
+
+app.register_blueprint(technical)
