@@ -10,20 +10,18 @@ from flask import Flask
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'pic_folder'
 
-interviewervideo = Blueprint('interviewer-video', __name__)
-
-@interviewervideo.route('/api/interviewer-video', methods=['POST'])
+@app.route('/api/interviewer-video', methods=['POST'])
 def generate_video():
     """requires image and video, and returns lip-synced video of interviewer"""
     if 'image' not in request.files or 'audio' not in request.files:
         return jsonify({'error': 'No file part'}), 400
-    
+   
     image_file = request.files['image']
     audio_file = request.files['audio']
 
     if image_file.filename == '' or audio_file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
-    
+   
     image_filename = secure_filename(image_file.filename)
     audio_filename = secure_filename(audio_file.filename)
 
@@ -59,10 +57,10 @@ def generate_video():
 
     os.remove(image_path)
     os.remove(audio_path)
-    
+   
     if not response.ok:
         return jsonify({'error': 'Failed to process video'}), 500
-    
+   
     status_url = response.headers["Location"]
     while True:
         response = requests.get(
@@ -78,7 +76,7 @@ def generate_video():
         else:
             sleep(3)
 
-"""for Daniel (or any frontend person), this is result, I'm returning direct link: 
+"""for Daniel (or any frontend person), this is result, I'm returning direct link:
 {
   "run_id": "p66bv90spzlh",
   "web_url": "https://gooey.ai/Lipsync/?run_id=p66bv90spzlh&uid=FT4FNMViOcNgeiOEC72HbWo33rr1",
@@ -91,4 +89,5 @@ def generate_video():
 }
 """
 
-app.register_blueprint(interviewervideo)
+if __name__ == '__main__':
+    app.run(debug=True)
