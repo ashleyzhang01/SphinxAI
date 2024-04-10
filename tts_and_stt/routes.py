@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, send_file
 from google.cloud import speech, texttospeech
 import io
 from google.cloud import texttospeech
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
