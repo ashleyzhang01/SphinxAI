@@ -32,14 +32,33 @@ class Question(db.Model):
 
     def __repr__(self):
         return f"<Category {self.category}, Question {self.question}>"
+    
+class CodingLanguageEnum(Enum):
+    PYTHON = 'python'
+    JAVA = 'java'
+    
+class CodingTechnical(db.Model):
+    '''Coding Problem model for Coding Technicals'''
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    language = db.Column(db.Enum(CodingLanguageEnum), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    starter_code = db.Column(db.Text, nullable=False)
+    solution = db.Column(db.Text, nullable=False)
+    tests = db.Column(db.Text, nullable=False)
+
+    def __repr__(self):
+        return f"<Problem {self.name}, Language {self.language}>"
+
 
 #from .bootstrap import load_clubs, load_users, test_comments, load_scraped_clubs
-from interview import import_questions
+from interview import populate_db
 
 with app.app_context():
    db.drop_all()
    db.create_all()
-   import_questions.import_questions_from_csv()
+   populate_db.import_questions_from_csv()
+   populate_db.import_coding_technicals()
     #load_clubs()
     #load_scraped_clubs()
    # load_users()

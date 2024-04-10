@@ -1,6 +1,4 @@
-from openai import OpenAI
-import os
-from flask import Blueprint, flash, request, redirect, url_for, jsonify
+from flask import Blueprint, flash, request, redirect, jsonify
 from werkzeug.utils import secure_filename
 from sqlalchemy.sql.expression import func
 from interview.models import db, Question
