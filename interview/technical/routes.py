@@ -38,13 +38,16 @@ def submit_technical():
             execution_code += "import java.util.*;\n\n"
         
         execution_code += user_code + '\n\n' + problem.tests
-        execution_code = execution_code.replace('\\n', '\n')
+        execution_code = execution_code.replace('\\n', '\n').replace('\\"', '\"')
         print(execution_code)
         execution_code =  base64.b64encode(execution_code.encode()).decode('utf-8')
         
         result = submit_to_judge0(execution_code, language_id)
         print(result['stdout'])
-        return jsonify({'test_results': base64.b64decode(result['stdout']).decode('utf-8').strip()})
+        return jsonify({
+            'test_results': base64.b64decode(result['stdout']).decode('utf-8').strip(),
+            'runtime': result['time']
+            })
 
 
 def get_language_id(language_enum):
