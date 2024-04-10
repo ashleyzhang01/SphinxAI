@@ -48,16 +48,17 @@ class CodingTechnical(db.Model):
     tests = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
-        return f"<Problem {self.name}>"
+        return f"<Problem {self.name}, Language {self.language}>"
 
 
 #from .bootstrap import load_clubs, load_users, test_comments, load_scraped_clubs
-from interview import import_questions
+from interview import populate_db
 
 with app.app_context():
    db.drop_all()
    db.create_all()
-   import_questions.import_questions_from_csv()
+   populate_db.import_questions_from_csv()
+   populate_db.import_coding_technicals()
     #load_clubs()
     #load_scraped_clubs()
    # load_users()
