@@ -1,4 +1,4 @@
 .env
 .venv
 .idea
-*/**/secrets.toml
+streamlitfrontend/.streamlit/secrets.toml

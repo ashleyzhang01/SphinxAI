@@ -1,9 +1,24 @@
 from openai import OpenAI
 import streamlit as st
+import requests
 
-st.title("ChatGPT-like clone")
+
+st.title("Welcome to your interviewer!")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
+interview_type = st.radio("Select interview type:", ("Consulting", "Banking", "Pure Behavioral"))
+if interview_type:
+    st.session_state["interview_type"] = interview_type
+    resume_uploaded = st.file_uploader("Upload your resume")
+    if resume_uploaded:
+        # Process the uploaded resume here
+        # For example, you can read the contents of the resume using resume_uploaded.read()
+        # Add your code to process the uploaded resume
+        # Example: Print the resume contents
+        resume_contents = resume_uploaded.read()
+
+data = requests.get("http://127.0.0.1:5000/api/questionSet/{}".format(interview_type)).json()
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
@@ -16,23 +31,12 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 if not st.session_state.messages:
-    bot_message = "Hello, what kind of interview would you like to do today? Also, please drop your resume."
+    bot_message = "Hello, welcome to your {} interview! I'm here to help you prepare. Let's get started. First, just walk me through your resume.".format(interview_type)
     st.session_state.messages.append({"role": "assistant", "content": bot_message})
     with st.chat_message("assistant"):
         st.markdown(bot_message)
 
-if uploaded_file := st.file_uploader("Upload a file"):
-    # Process the uploaded file here
-    # For example, you can read the contents of the file using uploaded_file.read()
-
-    # Add your code to process the uploaded file
-
-    # Example: Print the file contents
-    file_contents = uploaded_file.read()
-    st.write("Uploaded file contents:")
-    st.write(file_contents)
-
-if prompt := st.chat_input("What is up?"):
+if prompt := st.chat_input("Type your responses here..."):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
