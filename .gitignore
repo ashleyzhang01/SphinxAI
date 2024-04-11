@@ -2,3 +2,4 @@
 .venv
 .idea
 streamlitfrontend/.streamlit/secrets.toml
+google_cloud_config.json

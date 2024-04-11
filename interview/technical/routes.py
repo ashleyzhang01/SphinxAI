@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import os
 import json
 import base64
-from interview.models import db, CodingTechnical
+from interview.models import db, CodingTechnical, Question
 
 
 load_dotenv()
@@ -14,21 +14,55 @@ RAPIDAPI_KEY = os.environ.get("RAPIDAPI_KEY")
 
 technical = Blueprint('technical', __name__)
 
+@technical.route('/api/technical', methods=['GET', 'POST'])
+def generate_technical():
+    if request.method == 'POST':
+        data = request.get_json()
+        category = data.get('category')
+        # if they select coding then they need to also select language
+        if 'coding' in category or 'software engineering' in category:
+            language = data.get('language')
+            if not language:
+                return jsonify({'error': 'No language selected'}), 400
+            coding_techical = db.session.query(CodingTechnical).filter(
+                CodingTechnical.language == language.upper()
+            ).order_by(func.random()).first()
+            return jsonify({
+                "name": coding_techical.name.replace('\\n', '\n'),
+                "language": language.upper(),
+                "description": coding_techical.description.replace('\\n', '\n').replace('\\"', '\"'),
+                "starter_code": coding_techical.starter_code.replace('\\n', '\n').replace('\\"', '\"')
+            })
+        elif 'banking' in category.lower(): # might not need depending on what it's called
+            category = "IB"
+        # returns 3 random technical questions based on category
+        technicals = db.session.query(Question).filter(
+            Question.category == category
+        ).order_by(func.random()).limit(3).all()
+        return jsonify({
+            "question": [question.question for question in technicals]
+        })
+
+
 # this post should include id of the technical so that we can get the right tests
 # should be called anytime the user wants to run tests or submit. submit in JSON format
 @technical.route('/api/technical/submit', methods=['GET', 'POST'])
 def submit_technical():
     if request.method == 'POST':
         data = request.get_json()
-        problem_id = data.get('problem_id')
+        problem_name = data.get('problem_name')
+        problem_language = data.get('problem_language')
         user_code = data.get('user_code')
         
-        problem = CodingTechnical.query.get(problem_id)
+        problem = db.session.query(CodingTechnical).filter(
+            CodingTechnical.name == problem_name).filter(
+                CodingTechnical.language == problem_language.upper()
+            ).first()
         if not problem:
             return jsonify({'error': 'Problem not found'}), 404
         print(problem)
         execution_code = ""
-        language_id = get_language_id(problem.language)
+        language_id = get_language_id(problem_language)
         print(language_id)
         if language_id == None:
             return jsonify({'error': 'No language selected.'})
