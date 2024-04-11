@@ -10,7 +10,7 @@ interviewerVideo = Blueprint('interviewerVideo', __name__)
 @interviewerVideo.route('/api/interviewer-video', methods=['POST'])
 def generate_video():
     """Takes image URL and audio file, returns lip-synced video of interviewer"""
-    data = request.json  # Assuming JSON input
+    data = request.json 
     image_url = data.get('image_url')
     if 'audio' not in request.files or not image_url:
         return jsonify({'error': 'Image URL or audio file missing'}), 400
