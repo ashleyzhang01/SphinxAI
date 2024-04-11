@@ -1,45 +1,38 @@
 import os
-from flask import Blueprint, flash, request, redirect, url_for, jsonify, current_app
+from flask import Blueprint, request, jsonify, current_app
 from werkzeug.utils import secure_filename
-from interview.models import db, Question
 import requests
 import json
 from time import sleep
-from flask import Flask
 
 interviewerVideo = Blueprint('interviewerVideo', __name__)
 
-interviewerVideo.config['UPLOAD_FOLDER'] = 'pic_folder'
-
 @interviewerVideo.route('/api/interviewer-video', methods=['POST'])
 def generate_video():
-    """requires image and video, and returns lip-synced video of interviewer"""
-    if 'image' not in request.files or 'audio' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
-   
-    image_file = request.files['image']
+    """Takes image URL and audio file, returns lip-synced video of interviewer"""
+    data = request.json  # Assuming JSON input
+    image_url = data.get('image_url')
+    if 'audio' not in request.files or not image_url:
+        return jsonify({'error': 'Image URL or audio file missing'}), 400
+    
     audio_file = request.files['audio']
-
-    if image_file.filename == '' or audio_file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
-   
-    image_filename = secure_filename(image_file.filename)
     audio_filename = secure_filename(audio_file.filename)
-
-    image_path = os.path.join(current_app.config['UPLOAD_FOLDER'], image_filename)
     audio_path = os.path.join(current_app.config['UPLOAD_FOLDER'], audio_filename)
-    image_file.save(image_path)
     audio_file.save(audio_path)
 
     gooey_api_key = os.getenv("GOOEY_API_KEY")
     if gooey_api_key is None:
         return jsonify({'error': 'Gooey API key is not set'}), 500
 
-    with open(image_path, "rb") as image_file, open(audio_path, "rb") as audio_file:
-        files = [
-            ("input_face", image_file),
-            ("input_audio", audio_file),
-        ]
+    image_response = requests.get(image_url, stream=True)
+    if image_response.status_code != 200:
+        return jsonify({'error': 'Failed to fetch image from URL'}), 500
+
+    with open(audio_path, "rb") as audio_file:
+        files = {
+            "input_face": ("image.jpg", image_response.raw, image_response.headers['Content-Type']),
+            "input_audio": audio_file,
+        }
         payload = {
             "face_padding_top": 0,
             "face_padding_bottom": 18,
@@ -49,24 +42,19 @@ def generate_video():
 
         response = requests.post(
             "https://api.gooey.ai/v3/Lipsync/async/form/",
-            headers={
-                "Authorization": "Bearer " + gooey_api_key,
-            },
+            headers={"Authorization": "Bearer " + gooey_api_key},
             files=files,
             data={"json": json.dumps(payload)},
         )
 
-    os.remove(image_path)
     os.remove(audio_path)
-   
+    
     if not response.ok:
         return jsonify({'error': 'Failed to process video'}), 500
-   
+    
     status_url = response.headers["Location"]
     while True:
-        response = requests.get(
-            status_url, headers={"Authorization": "Bearer " + gooey_api_key}
-        )
+        response = requests.get(status_url, headers={"Authorization": "Bearer " + gooey_api_key})
         if not response.ok:
             return jsonify({'error': 'Failed to get video status'}), 500
         result = response.json()
