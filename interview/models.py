@@ -20,7 +20,7 @@ class User(db.Model):
 
 class CategoryEnum(Enum):
     GENERAL = 'general'
-    # QUANT = 'quant'
+    QUANT = 'quant'
     CONSULTING = 'consulting'
     IB = 'investment_banking'
     
@@ -29,6 +29,7 @@ class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category = db.Column(db.Enum(CategoryEnum), nullable=False)
     question = db.Column(db.String, nullable=False)
+    answer = db.Column(db.String, nullable=True)
 
     def __repr__(self):
         return f"<Category {self.category}, Question {self.question}>"

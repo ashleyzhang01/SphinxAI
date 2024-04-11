@@ -7,8 +7,12 @@ def import_questions_from_csv():
         for row in reader:
             category = row['Category']
             question = row['Question']
+
             if not Question.query.filter_by(category=category.upper(), question=question).first():
-                new_question = Question(category=category.upper(), question=question)
+                if answer := row['Answer']:
+                    new_question = Question(category=category.upper(), question=question, answer=answer)
+                else:
+                    new_question = Question(category=category.upper(), question=question)
                 db.session.add(new_question)
     
     # add files
@@ -21,6 +25,9 @@ def import_coding_technicals():
             # print(row)
             language = row['\ufeffLanguage']
             name = row['Name']
+            # obj_to_delete = CodingTechnical.query.filter_by(id=9).first()
+            # if obj_to_delete:
+            #     db.session.delete(obj_to_delete)
             if not CodingTechnical.query.filter_by(language=language.upper(), name=name).first():
                 new_question = CodingTechnical(
                     language=language.upper(), 

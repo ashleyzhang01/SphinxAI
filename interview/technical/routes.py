@@ -19,6 +19,7 @@ def generate_technical():
     if request.method == 'POST':
         data = request.get_json()
         category = data.get('category')
+        num = 3
         # if they select coding then they need to also select language
         if 'coding' in category or 'software engineering' in category:
             language = data.get('language')
@@ -35,10 +36,12 @@ def generate_technical():
             })
         elif 'banking' in category.lower(): # might not need depending on what it's called
             category = "IB"
+        elif 'quant' in category.lower():
+            num = 6
         # returns 3 random technical questions based on category
         technicals = db.session.query(Question).filter(
-            Question.category == category
-        ).order_by(func.random()).limit(3).all()
+            Question.category == category.upper()
+        ).order_by(func.random()).limit(num).all()
         return jsonify({
             "question": [question.question for question in technicals]
         })
@@ -77,10 +80,15 @@ def submit_technical():
         execution_code =  base64.b64encode(execution_code.encode()).decode('utf-8')
         
         result = submit_to_judge0(execution_code, language_id)
-        print(result['stdout'])
-        return jsonify({
-            'test_results': base64.b64decode(result['stdout']).decode('utf-8').strip(),
-            'runtime': result['time']
+        if result['stdout']:
+            print(result['stdout'])
+            return jsonify({
+                'test_results': base64.b64decode(result['stdout']).decode('utf-8').strip(),
+                'runtime': result['time']
+            })
+        else:
+            return jsonify({
+                'output': base64.b64decode(result['compile_output']).decode('utf-8').strip()
             })
 
 
@@ -90,7 +98,7 @@ def get_language_id(language_enum):
     return {
         'python': 71,
         'java': 62,
-    }.get(language_enum.name.lower(), None)
+    }.get(language_enum.lower(), None)
 
 def submit_to_judge0(source_code, language_id):
     url = "https://judge0-ce.p.rapidapi.com/submissions"

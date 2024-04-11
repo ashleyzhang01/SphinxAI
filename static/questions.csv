@@ -1,37 +1,55 @@
-Category,Question
-general, "Tell me about a time when you had to work closely with someone whose personality was very different from yours."
-general, "Give me an example of a time you faced a conflict with a coworker. How did you handle that?"
-general, "Tell me about a time you made a mistake and wish you’d handled a situation with a colleague differently."
-general, "Tell me about a time you needed to get information from someone who wasn’t very responsive. What did you do?"
-general, "Describe a time when it was especially important to make a good impression on a client. How did you go about doing so?"
-general, "Give me an example of a time when you didn’t meet a client’s expectation. What happened, and how did you attempt to rectify the situation?"
-IB, "What is the role of investment banking in the financial industry?"
-IB, "Explain the difference between buy-side and sell-side in investment banking."
-IB, "What are the main services provided by investment banks?"
-IB, "Describe the process of conducting due diligence in an investment banking transaction."
-IB, "What is an initial public offering (IPO) and how does it work?"
-IB, "Explain the concept of valuation in investment banking."
-IB, "What are the key financial statements used in investment banking analysis?"
-IB, "Describe the role of mergers and acquisitions (M&A) in investment banking."
-IB, "What is a leveraged buyout (LBO) and how does it work?"
-IB, "Explain the concept of risk management in investment banking."
-IB, "What are the main factors that drive the valuation of a company in an investment banking context?"
-IB, "Describe the role of underwriting in investment banking."
-IB, "What are the main types of financial models used in investment banking?"
-IB, "Explain the concept of capital markets in investment banking."
-IB, "What are the key regulatory considerations in investment banking?"
-consulting, "Tell me about a time when you had to analyze a complex problem and provide recommendations to a client."
-consulting, "Give me an example of a project where you had to manage multiple stakeholders with conflicting interests. How did you handle it?"
-consulting, "Describe a situation where you had to present a difficult or unpopular recommendation to a client. How did you approach it?"
-consulting, "Tell me about a time when you had to work with a team to develop a strategic plan for a client. How did you ensure alignment and execution?"
-consulting, "Give me an example of a situation where you had to manage a project with tight deadlines and limited resources. How did you prioritize and deliver results?"
-consulting, "Describe a time when you had to conduct market research and analysis to support a client's decision-making process."
-consulting, "Tell me about a project where you had to identify and assess risks for a client. How did you mitigate those risks?"
-consulting, "Give me an example of a situation where you had to facilitate a difficult conversation or negotiation between clients. How did you manage the process?"
-consulting, "Describe a time when you had to develop and deliver a training program for a client's employees. How did you ensure effective knowledge transfer?"
-consulting, "Tell me about a project where you had to analyze financial data and develop financial models to support a client's investment decision."
-consulting, "Give me an example of a situation where you had to manage change within an organization. How did you overcome resistance and drive adoption?"
-consulting, "Describe a time when you had to conduct a feasibility study for a client's new business venture. How did you assess the viability and potential risks?"
-consulting, "Tell me about a project where you had to develop and implement a performance measurement system for a client. How did you ensure alignment with their strategic goals?"
-consulting, "Give me an example of a situation where you had to lead a team through a process improvement initiative. How did you drive efficiency and effectiveness?"
-consulting, "Describe a time when you had to develop a business case for a client's investment opportunity. How did you assess the financial viability and potential returns?"
+Category,Question,Answer
+general," ""Tell me about a time when you had to work closely with someone whose personality was very different from yours.""",
+general," ""Give me an example of a time you faced a conflict with a coworker. How did you handle that?""",
+general," ""Tell me about a time you made a mistake and wish you’d handled a situation with a colleague differently.""",
+general," ""Tell me about a time you needed to get information from someone who wasn’t very responsive. What did you do?""",
+general," ""Describe a time when it was especially important to make a good impression on a client. How did you go about doing so?""",
+general," ""Give me an example of a time when you didn’t meet a client’s expectation. What happened"," and how did you attempt to rectify the situation?"""
+IB," ""What is the role of investment banking in the financial industry?""",
+IB," ""Explain the difference between buy-side and sell-side in investment banking.""",
+IB," ""What are the main services provided by investment banks?""",
+IB," ""Describe the process of conducting due diligence in an investment banking transaction.""",
+IB," ""What is an initial public offering (IPO) and how does it work?""",
+IB," ""Explain the concept of valuation in investment banking.""",
+IB," ""What are the key financial statements used in investment banking analysis?""",
+IB," ""Describe the role of mergers and acquisitions (M&A) in investment banking.""",
+IB," ""What is a leveraged buyout (LBO) and how does it work?""",
+IB," ""Explain the concept of risk management in investment banking.""",
+IB," ""What are the main factors that drive the valuation of a company in an investment banking context?""",
+IB," ""Describe the role of underwriting in investment banking.""",
+IB," ""What are the main types of financial models used in investment banking?""",
+IB," ""Explain the concept of capital markets in investment banking.""",
+IB," ""What are the key regulatory considerations in investment banking?""",
+consulting," ""Tell me about a time when you had to analyze a complex problem and provide recommendations to a client.""",
+consulting," ""Give me an example of a project where you had to manage multiple stakeholders with conflicting interests. How did you handle it?""",
+consulting," ""Describe a situation where you had to present a difficult or unpopular recommendation to a client. How did you approach it?""",
+consulting," ""Tell me about a time when you had to work with a team to develop a strategic plan for a client. How did you ensure alignment and execution?""",
+consulting," ""Give me an example of a situation where you had to manage a project with tight deadlines and limited resources. How did you prioritize and deliver results?""",
+consulting," ""Describe a time when you had to conduct market research and analysis to support a client's decision-making process.""",
+consulting," ""Tell me about a project where you had to identify and assess risks for a client. How did you mitigate those risks?""",
+consulting," ""Give me an example of a situation where you had to facilitate a difficult conversation or negotiation between clients. How did you manage the process?""",
+consulting," ""Describe a time when you had to develop and deliver a training program for a client's employees. How did you ensure effective knowledge transfer?""",
+consulting," ""Tell me about a project where you had to analyze financial data and develop financial models to support a client's investment decision.""",
+consulting," ""Give me an example of a situation where you had to manage change within an organization. How did you overcome resistance and drive adoption?""",
+consulting," ""Describe a time when you had to conduct a feasibility study for a client's new business venture. How did you assess the viability and potential risks?""",
+consulting," ""Tell me about a project where you had to develop and implement a performance measurement system for a client. How did you ensure alignment with their strategic goals?""",
+consulting," ""Give me an example of a situation where you had to lead a team through a process improvement initiative. How did you drive efficiency and effectiveness?""",
+consulting," ""Describe a time when you had to develop a business case for a client's investment opportunity. How did you assess the financial viability and potential returns?""",
+consulting," ""Your client is a $300 million a year copper mining company. This year it has lost $50 million. How do you turn it around?""",
+consulting," ""How many gallons of gasoline does an average gas station in America sell on an average day?""",
+consulting," ""Your client is a ski resort. Global warming has made it such that natural snowfall has been reduced by 50%. They client is concerned. What should they do and why?""",
+consulting," ""Your client is Motorola. The year is 1980. They just invented the cellular phone 3 years ago. They want you to estimate the market demand for cell phones over the next 30 years and tell them if there is a market for this invention (and prove it)""",
+consulting," ""Your client is a gas station and the market is so competitive that they make no money on gasoline sales. All the profit is in convenience store sales. What is the profit maximizing way to layout the convenience store and why?""",
+consulting," ""Volvo claims it is the safest car in the world because fewer people die in a Volvo than in a car made by any other manufacturer in the world. What's wrong with this conclusion?""",
+quant," ""For a 3 sets tennis game, would you bet on it finishing in 2 sets or 3 sets?""","""Two sets - Let p=prob team 1 wins and q=prob team 2 wins. p^2 + q^2 = probability finish in two sets. 2*p*q = probability finish in three sets. p^2 + q^2 always >= 2*p*q, so the answer is two sets."""
+quant,"""I have a square, and place three dots along the 4 edges at random. What is the probability that the dots lie on distinct edges?""","""3/8 - Given the edge the first dot is on, the probability the other two dots are on distinct edges is (3/4)*(2/4)"""
+quant," ""How many digits are in 99 to the 99th power?""","""198 - 99^99 = (100)^(99) * (.99)^99 = (10)^(198) * (.99)^99. You can convince yourself 10^198 has 199 digits, and 0.99^.99 approaches 1/e. Thus, (10)^(198) * (.99)^99 has 198 digits."""
+quant,"""2 blue and 2 red balls, in a box, no replacing. Guess the color of the ball, you receive a dollar if you are correct. What is the dollar amount you would pay to play this game?""","""17/6 dollars - You'll always get the last ball right as your sampling w/o replacement. The first ball you have a 50% chance of getting right. The second ball you have a 2/3 chance of getting right."""
+quant," ""Does the price of a call option increase when volatility increases?"""," ""Yes - sometimes a rare finance question is included in these interviews; remember that both time and volatility increase the prices of both calls and puts"""
+quant,"""There are 5 balls, 3 red, and 2 black. What is the probability that a random ordering of the 5 balls does not have the 2 black balls next to each other?""","""0.6 - Because of repeats of black/red balls, there are 10 combinations of red/black balls: (5 choose 2) or (5 choose 3) spots to put the black or red balls, respectively. There are 4 places that 2 black balls can be next to each other, so the other 6 combinations do NOT have two black balls next to each other."""
+quant,"""What is the least multiple of 15 whose digits consist only of 1's and 0's?""","""1110 - The last digit must be zero (30, 45, 60, 75, etc.). Multiples of 15 never end in 1. Then, starting checking numbers. 10, 100, 110, 1000, 1100, 1110. You will quickly arrive at the answer if you are good with your mental math."""
+quant,"""You're given a two-sided coin that could be fair or biased? How would you figure out whether or not the coin is biased?""",
+quant,"""If you look at a clock and the time is 12:15, what is the angle between the hour and the minute hand?""","""We know that at 12:15 the angle is slightly less than 90 (360/4). Now, the minute hand has only moved 1/4 of the way through the hour (the minute hand is at 15, which is 1/4 of the way around), so the hour hand has moved 7.5 degrees (30 degrees per hour times 1/4 move in the minute hand). Now we know the hour hand moved 7.5 degrees, so the answer is 82.5 degrees (90-7.5)."""
+quant,"""You have a five-gallon jug and a three-gallon jug. Your must obtain exactly 4 gallons of water. How will you do it?""","""Fill the five-gallon jug and then pour it into the three-gallon jug. The five-gallon jug has 2 gallons left. Now throw the three-gallon water away. Pour the 2 gallons from the five-gallon jug to the three-gallon jug. So now the three-gallon jug has just 2 gallons of water. Fill the five-gallon jug again, and pour 1 gallon to the three-gallon jug. You are then left with 4 gallons of water in the five-gallon jug."""
+quant,"""You are playing a card game against one opponent. The game starts with 21 cards on the table. You and your opponent alternate turns, and during each turn, A player may pick up 1, 2 or 3 cards. The winner is the person that picks up the last card. You go first. What is your first move, and what is the optimal strategy to win this game?""","""You pick 1 card first (leaving 20), then you want to respond to all opponent picks by picking a number that totals 4 combined with their last pick. So, you pick 1. Then, if they pick 3, you pick 1.if they pick 2, you pick 2.if they pick 1, you pick 3. This ensures that you're always leaving them with a multiple of 4 (first 20, then 16, 12, 8, 4), right until the end, when you leave them with exactly 4. When they're stuck with 4, they are out of luck, because regardless if they pick 1, 2 or 3, you will be able to win in the next turn."""
+quant,"""A company has 10 machines that produce gold coins. One of the machines is producing coins that are a gram light each. How do you tell which machine is making the defective coins with only one weighing?""","""Every machine will have to produce a sample coin or coins, and you must weigh all these coins together.  How can you indicate which coins came from which machine? If every machine cranks out a different number of coins (machine 1 makes one coin, machine 2 makes two coins, and so on, then taking all the coins and weighing them together against their theoretical weight will give you the answer.  If you''re four grams short, for example, you'll know that machine 4 is defective."""
