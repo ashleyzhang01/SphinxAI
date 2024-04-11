@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, FC } from "react";
 import styles from "../styles/Home.module.css";
+import VideoHeader from "./VideoHeader";
 
 interface ParticipantProps {
   name: string;
@@ -25,9 +26,16 @@ const Participant: FC<ParticipantProps> = ({ name }) => {
   }, []);
 
   return (
-    <div className={styles.card}>
-      <h2>{name} &rarr;</h2>
-      <video ref={videoRef} autoPlay playsInline />
+    <div className="h-full w-full z-10 relative blur-none">
+      <div className="absolute">
+        <VideoHeader variant={1} value={3} username={name} />
+      </div>
+      <video
+        className="rounded-lg h-full w-full"
+        ref={videoRef}
+        autoPlay
+        playsInline
+      />
     </div>
   );
 };

@@ -2,13 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
-import { FaFileUpload, FaPaperPlane } from "react-icons/fa";
 import Message from "../components/Message";
-import RoundedBarControlGroup from "../components/RoundedBarControlGroup";
 import VideoHeader from "../components/VideoHeader";
 import UtilityButton from "../components/UtilityButton";
 import { getAllUsers } from "../userService";
 import MessageField from "../components/MessageField";
+import Participant from "../components/Participant";
+import Interviewer from "../components/Interviewer";
 
 type User = {
   id: number;
@@ -28,28 +28,22 @@ export default function Home() {
     <main>
       <div className="grid grid-cols-4">
         <div className="col-span-3 w-full h-screen bg-blue-300 relative">
-          <iframe
-            src="https://www.youtube.com/embed/AfSk24UTFS8?si=D1EDaQMLLq5OoeWZ"
-            frameBorder="0"
-            allowFullScreen
-          />
-          <div className="absolute top-6 right-6 flex">
-            <div className="ml-4">
-              <UtilityButton />
-            </div>
-            <div className="ml-4">
-              <UtilityButton />
-            </div>
-            <div className="ml-4">
-              <UtilityButton />
-            </div>
+          <div className="h-full w-full z-30">
+            <Interviewer videoUrl="https://www.youtube.com/embed/YMOYM1YZ97o?si=6XLD9_zBVZz5O8iV" />
           </div>
-          <div>
-            <div></div>
-            <VideoHeader variant={2} value={3} username="Judy Kim" />
+          <div className="w-1/3 h-1/3 bg-slate-900 absolute bottom-6 right-6 rounded-lg shadow-md">
+            <Participant name="Saahil"></Participant>
           </div>
-          <div className="w-1/3 h-1/3 bg-blue-100 absolute bottom-6 right-6 rounded-lg">
-            <VideoHeader variant={1} value={3} username="Saahil" />
+          <div className="absolute top-6 right-6 flex z-60">
+            <div className="ml-4">
+              <UtilityButton />
+            </div>
+            <div className="ml-4">
+              <UtilityButton />
+            </div>
+            <div className="ml-4">
+              <UtilityButton />
+            </div>
           </div>
         </div>
         <div className="w-full h-screen bg-sky-950 flex flex-col justify-between items-center pt-4 relative">
