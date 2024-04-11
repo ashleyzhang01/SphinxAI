@@ -18,3 +18,8 @@ app.register_blueprint(behavioral)
 from interview.technical.routes import technical
 
 app.register_blueprint(technical)
+
+from interview.interviewerVideo.routes import interviewerVideo
+
+app.register_blueprint(interviewerVideo)
+

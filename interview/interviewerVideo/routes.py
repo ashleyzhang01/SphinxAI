@@ -7,10 +7,11 @@ import json
 from time import sleep
 from flask import Flask
 
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'pic_folder'
+interviewerVideo = Blueprint('interviewerVideo', __name__)
 
-@app.route('/api/interviewer-video', methods=['POST'])
+interviewerVideo.config['UPLOAD_FOLDER'] = 'pic_folder'
+
+@interviewerVideo.route('/api/interviewer-video', methods=['POST'])
 def generate_video():
     """requires image and video, and returns lip-synced video of interviewer"""
     if 'image' not in request.files or 'audio' not in request.files:
@@ -88,6 +89,3 @@ def generate_video():
   }
 }
 """
-
-if __name__ == '__main__':
-    app.run(debug=True)
