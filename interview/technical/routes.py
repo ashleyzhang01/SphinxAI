@@ -7,6 +7,7 @@ import os
 import json
 import base64
 from interview.models import db, CodingTechnical, Question
+from interview import ai
 
 
 load_dotenv()
@@ -46,6 +47,49 @@ def generate_technical():
             "question": [question.question for question in technicals]
         })
 
+@technical.route('/api/technical/feedback', methods=['GET', 'POST'])
+# request should contain the question(s), category, and transcript. if coding technical, technical name, language, runtime, test_results.
+def feedback():
+    if request.method == 'POST':
+        data = request.json 
+        
+        question = data.get('question')
+        category = data.get('category')
+        transcript = data.get('transcript', '')
+
+        if 'coding' in category or 'software engineering' in category:
+            language = data.get('language')
+            if not language:
+                return jsonify({'error': 'No language selected'}), 400
+            question = db.session.query(CodingTechnical).filter(
+                CodingTechnical.name == question
+            ).filter(
+                CodingTechnical.language == language
+            ).first()
+            transcript_feedback = ai.process_transcript_section('coding', transcript)
+            feedback_response = {
+                'Feedback': f'{data.get('test_results')}\nRuntime: {data.get('runtime')}\n' + transcript_feedback,
+                'Question Description': question.description,
+                'Sample Solution': question.solution
+            }
+            return jsonify(feedback_response)
+        
+        if category.lower() == 'quant':
+            has_answers = False
+            for q in question:
+                q = db.session.query(Question).filter(Question.question == q).first()
+                if q and q.answer and not has_answers:
+                    has_answers = True
+                    transcript += '\nThe transcript has now ended. Some questions have clear answers. Compare the interviewee response to the correct answers for those questions below, and tell them if they are wrong.'
+                elif q and q.answer and has_answers:
+                    transcript += f'\nThe correct answer to the question {q.question} is {q.answer}.'
+
+        transcript_feedback = ai.process_transcript_section(category.lower(), transcript)
+        feedback_response = {
+            'Feedback': transcript_feedback,
+            'Questions': question
+        }
+        return jsonify(feedback_response)
 
 # this post should include id of the technical so that we can get the right tests
 # should be called anytime the user wants to run tests or submit. submit in JSON format
@@ -83,6 +127,8 @@ def submit_technical():
         if result['stdout']:
             print(result['stdout'])
             return jsonify({
+                'question': problem_name,
+                'language': problem_language,
                 'test_results': base64.b64decode(result['stdout']).decode('utf-8').strip(),
                 'runtime': result['time']
             })

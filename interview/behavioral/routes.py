@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 from sqlalchemy.sql.expression import func
 from interview.models import db, Question
 
-from interview.behavioral import ai
+from interview import ai
 
 behavioral = Blueprint('behavioral', __name__)
 
