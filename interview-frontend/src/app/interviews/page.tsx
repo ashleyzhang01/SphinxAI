@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const InterviewsPage = () => {
   const [category, setCategory] = useState('');
-  const [resume, setRsesume] = useState<File | null>(null); 
+  const [resume, setResume] = useState<File | null>(null); 
   const router = useRouter();
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => { 
@@ -25,8 +25,9 @@ const InterviewsPage = () => {
       if (resume) {
         formData.append('resume', resume);
       }
-      const questions = await axios.post('http://localhost:5000/api/behavioral', formData);
+      const questions : any = await axios.post('http://localhost:5000/api/behavioral', formData);
       localStorage.setItem("category", category)
+      localStorage.setItem("questions", questions)
       router.push('/');
     } catch (error) {
       console.error('Error:', error);
