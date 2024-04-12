@@ -60,9 +60,9 @@ def feedback():
     if request.method == 'POST':
         transcript = request.json 
         
-        about = transcript.get('about', '')
-        resume = transcript.get('resume', '')
-        questions = transcript.get('questions', '')
+        about = transcript.get("about", '')
+        resume = transcript.get("resume", '')
+        questions = transcript.get("questions", '')
 
         about_feedback = ai.process_transcript_section('about', about)
         resume_feedback = ai.process_transcript_section('resume', resume)

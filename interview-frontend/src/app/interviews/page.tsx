@@ -35,16 +35,7 @@ const InterviewsPage = () => {
       localStorage.setItem("questions", questions.data.questions);
       localStorage.setItem("resume", questions.data.resume);
       console.log(questions);
-      // router.push('/');
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Access-Control-Allow-Origin': '*', // Allow requests from any origin
-        },
-      };
-      const questions : any = await axios.post('http://localhost:5000/api/behavioral', formData, config);
-      localStorage.setItem("category", category)
-      localStorage.setItem("questions", questions)
+
       router.push('/');
     } catch (error) {
       console.error("Error:", error);
