@@ -63,7 +63,7 @@ export default function Home() {
           <div className="h-full w-full z-30">
             <Interviewer
               variant={1}
-              videoUrl="https://www.youtube.com/embed/YMOYM1YZ97o?si=6XLD9_zBVZz5O8iV"
+              videoUrl="https://www.youtube.com/embed/2zKsBfsrxrs?si=5v8dKCzZGeEQnvN9"
             />
           </div>
           <div className="w-1/3 h-1/3 bg-slate-900 absolute bottom-6 right-6 rounded-lg shadow-md">

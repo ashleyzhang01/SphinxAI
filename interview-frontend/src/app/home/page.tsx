@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { ColorButton } from "@/components/Button";
 
 const HomeScreen = (props: any) => {
   const [userData, setUserData] = useState<any>({ username: "" });
@@ -78,6 +79,7 @@ const HomeScreen = (props: any) => {
             </p>
           </div>
         </div>
+        
       </div>
     </div>
   );

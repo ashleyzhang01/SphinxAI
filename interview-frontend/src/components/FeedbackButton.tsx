@@ -9,7 +9,7 @@ interface ButtonProps {
   padd?: string;
   children: any;
 }
-const ColorButton: FC<ButtonProps> = (props) => {
+const ColorButtonWide: FC<ButtonProps> = (props) => {
   const classData: string = `bg-sky-800
     text-lg
     h-auto 
@@ -65,4 +65,4 @@ const FreeButton: FC<ButtonProps> = (props) => {
   );
 };
 
-export { FreeButton, ColorButton };
+export { FreeButton, ColorButtonWide };

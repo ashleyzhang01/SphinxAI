@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const Message = ({ username,  message, pfp}: any) => {
+const Message = ({ username, message, pfp }: any) => {
   return (
     <div className="flex items-center p-2 bg-gray-200 w-full mb-4 rounded-lg">
       <div className="flex-shrink-0">

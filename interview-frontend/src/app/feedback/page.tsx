@@ -4,8 +4,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { ColorButton } from "@/components/FeedbackButton";
+import { ColorButtonWide } from "@/components/FeedbackButton";
+import { ColorButton } from "@/components/Button";
 import Card from "@/components/Card";
+import Link from "next/link";
 
 const Feedback = (props: any) => {
   const [userData, setUserData] = useState<any>({ username: "" });
@@ -85,16 +87,23 @@ const Feedback = (props: any) => {
               </div>
             </Card>
           </div>
+          <div className="flex justify-center mt-4">
+            <Link href="/tech">
+              <ColorButton>Next</ColorButton>
+            </Link>
+          </div>
         </div>
         <div className="w-full h-screen bg-sky-950 py-4 flex flex-col items-center pt-4 relative">
           <div className="mb-5 w-5/6">
-            <ColorButton color="green-300">Export as PDF</ColorButton>
+            <ColorButtonWide color="green-300">Export as PDF</ColorButtonWide>
           </div>
           <div className="mb-5 w-5/6">
-            <ColorButton color="green-300">Leaderboard</ColorButton>
+            <ColorButtonWide color="green-300">Leaderboard</ColorButtonWide>
           </div>
           <div className="mb-5 w-5/6">
-            <ColorButton color="green-300">Share With Friends</ColorButton>
+            <ColorButtonWide color="green-300">
+              Share With Friends
+            </ColorButtonWide>
           </div>
           <div className="overflow-auto h-5/6 w-full flex flex-col item-center">
             <div className="font-bold text-white text-2xl text-center">

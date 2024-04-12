@@ -126,7 +126,7 @@ def submit_technical():
         execution_code =  base64.b64encode(execution_code.encode()).decode('utf-8')
         
         result = submit_to_judge0(execution_code, language_id)
-        if result['stdout']:
+        if result.get('stdout'):
             print(result['stdout'])
             return jsonify({
                 'question': problem_name,
@@ -136,7 +136,7 @@ def submit_technical():
             })
         else:
             return jsonify({
-                'output': base64.b64decode(result['compile_output']).decode('utf-8').strip()
+                'test_results': base64.b64decode(result['compile_output']).decode('utf-8').strip()
             })
 
 
