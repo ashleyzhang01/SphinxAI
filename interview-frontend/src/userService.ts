@@ -44,6 +44,14 @@ function LogInUser(formData: any): Promise<any>{
     return axios.post(`http://localhost:5000/api/users/login`, payload).then((token)=>token).catch((e)=> e)
 }
 
+const LogOutUser = async () => {
+    try {
+        await axios.post('http://localhost:5000/api/users/logout');
+        window.location.href = '/home';
+    } catch (error) {
+        console.error('Error logging out:', error);
+        throw error; 
+    }
+}
 
-
-export default  {getUser, getAllUsers, CreateUser, LogInUser};
+export default  {getUser, getAllUsers, CreateUser, LogInUser, LogOutUser};

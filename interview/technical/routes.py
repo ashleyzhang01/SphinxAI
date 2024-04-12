@@ -67,8 +67,10 @@ def feedback():
                 CodingTechnical.language == language
             ).first()
             transcript_feedback = ai.process_transcript_section('coding', transcript)
+            test_results = data.get('test_results')
+            runtime = data.get('runtime')
             feedback_response = {
-                'Feedback': f"{data.get('test_results')}\nRuntime: {data.get('runtime')}\n" + transcript_feedback,
+                'Feedback': f'{test_results}\nRuntime: {runtime}\n' + transcript_feedback,
                 'Question Description': question.description,
                 'Sample Solution': question.solution
             }
