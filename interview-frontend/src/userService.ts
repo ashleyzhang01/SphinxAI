@@ -31,7 +31,8 @@ function CreateUser(formData: any): Promise<any>{
         email: formData.email,
         password: formData.password
     }
-    return axios.post(`/api/users`, payload).then((user)=>user).catch((e)=> e)
+    console.log(payload)
+    return axios.post(`http://localhost:5000/api/users`, payload).then((user)=>user).catch((e)=> e)
 }
 
 function LogInUser(formData: any): Promise<any>{
@@ -40,7 +41,7 @@ function LogInUser(formData: any): Promise<any>{
         password: formData.password,
         email: formData.email
     }
-    return axios.post(`/api/login`, payload).then((token)=>token).catch((e)=> e)
+    return axios.post(`http://localhost:5000/api/users/login`, payload).then((token)=>token).catch((e)=> e)
 }
 
 

@@ -15,14 +15,15 @@ bcrypt = Bcrypt(app)
 
 # Gets all users in the database
 @users.route('/api/users', methods=['GET'])
-@auth_required
-def user_get(user):
+def user_get():
     users = db.session.query(User.id, User.username).all()
     return jsonify({"users": [{"id":u.id, "username": u.username} for u in users], "status": "200"})
+
 
 # Creates a new user
 @users.route('/api/users', methods=['POST'])
 def user_post():
+    print("HELLO")
     req_data = request.get_json()
     username = req_data['username']
     password = req_data['password']

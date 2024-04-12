@@ -1,5 +1,6 @@
 from interview.models import db, Question, CodingTechnical
 import csv
+import re
 
 def import_questions_from_csv():
     with open('./static/questions.csv', 'r') as file:
@@ -19,11 +20,11 @@ def import_questions_from_csv():
     db.session.commit()
 
 def import_coding_technicals():
-    with open('./static/coding_technicals.csv', 'r') as file:
+    with open('./static/coding_technicals.csv', 'r', encoding='utf-8-sig') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            # print(row)
-            language = row['\ufeffLanguage']
+            print(row)
+            language = row['Language']
             name = row['Name']
             # obj_to_delete = CodingTechnical.query.filter_by(id=9).first()
             # if obj_to_delete:

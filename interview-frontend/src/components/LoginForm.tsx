@@ -4,11 +4,11 @@ import TextField from "./TextField";
 import Select from "./Select";
 import Router, { useRouter } from "next/navigation";
 import jwt_decode from "jwt-decode";
-import axios from "axios";
 import { ColorButton } from "./Button";
+import Cookies from "js-cookie";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import userService from "../userService";
-const SignUpForm: FC = () => {
+const LogInForm: FC = () => {
   const router = useRouter();
   return (
     <Formik
@@ -16,21 +16,21 @@ const SignUpForm: FC = () => {
         username: "",
         password: "",
         email: "",
-        passwordConfirm: "",
       }}
-      onSubmit={(values: any, { setSubmitting }: any) => {
+      onSubmit={(values, { setSubmitting }) => {
         userService
-          .CreateUser(values)
-          .then(() => {
-            alert("User created successfully!");
-            //router.push("/login");
+          .LogInUser(values)
+          .then((token: any) => {
+            if (token.status == 200) {
+              document.cookie = `token=${token.data}`;
+              router.push("/");
+            } else {
+              window.location.reload();
+            }
           })
-          .catch(() => {
-            alert("This username or email already exists!");
-            router.refresh();
-          });
+          .catch(() => window.location.reload());
       }}
-      validate={(values: any) => {
+      validate={(values) => {
         const errors: any = {};
         if (!values.email) {
           errors.email = "Required";
@@ -40,15 +40,10 @@ const SignUpForm: FC = () => {
           errors.email = "Invalid email address";
         }
         if (!values.password) {
-          errors.password = "Required";
-        } else if (values.password !== values.passwordConfirm) {
-          errors.password = "Passwords must match";
-        }
-        if (!values.passwordConfirm) {
-          errors.passwordConfirm = "Required";
+          errors.password = "Please enter your password!";
         }
         if (!values.username) {
-          errors.username = "Required";
+          errors.username = "Please enter your username!";
         } else if (values.username.length > 20) {
           errors.username = "Username must be less than 20 characters";
         }
@@ -63,7 +58,7 @@ const SignUpForm: FC = () => {
         handleBlur,
         handleSubmit,
         isSubmitting,
-      }: any) => (
+      }) => (
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-5">
             <div className="h-16 col-span-2">
@@ -90,7 +85,7 @@ const SignUpForm: FC = () => {
                 {errors.email && touched.email && errors.email}
               </div>
             </div>
-            <div className="h-16">
+            <div className="h-16 col-span-2">
               <Field
                 errors={errors.password && touched.password && errors.password}
                 name="password"
@@ -100,24 +95,6 @@ const SignUpForm: FC = () => {
               ></Field>
               <div className="text-xs m-px text-red-500">
                 {errors.password && touched.password && errors.password}
-              </div>
-            </div>
-            <div className="h-16">
-              <Field
-                errors={
-                  errors.passwordConfirm &&
-                  touched.passwordConfirm &&
-                  errors.passwordConfirm
-                }
-                name="passwordConfirm"
-                placeholder="Confirm Password"
-                type="password"
-                as={TextField}
-              ></Field>
-              <div className="text-xs m-px text-red-500">
-                {errors.passwordConfirm &&
-                  touched.passwordConfirm &&
-                  errors.passwordConfirm}
               </div>
             </div>
           </div>
@@ -141,4 +118,4 @@ const SignUpForm: FC = () => {
   );
 };
 
-export default SignUpForm;
+export default LogInForm;
