@@ -11,7 +11,7 @@ We provide a full immersive interview experience, with text-to-speech and speech
 We use AI to provide personalized feedback and analysis on your responses&apos correctness and clarity, helping you optimize your performance. You&apos ll also get feedback on how to make your points more clear and confident with analysis of eye-tracking, pauses, and filler words.
 
 ## Our Tech Stack
-![image](https://imgur.com/a/yKpPtcw)
+![SphinxAI tech stack](https://i.imgur.com/2YYDpH1.png)
 
 ## Installation
 First, download the dependencies in the Pipfile.
