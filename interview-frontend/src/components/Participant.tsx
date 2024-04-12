@@ -25,6 +25,7 @@ const Participant: FC<ParticipantProps> = ({ name }) => {
       });
   }, []);
 
+  
   return (
     <div className="h-full w-full z-10 relative blur-none">
       <div className="absolute">

@@ -2,14 +2,14 @@
 
 import React from "react";
 import Image from "next/image";
-import Message from "../components/Message";
-import VideoHeader from "../components/VideoHeader";
-import UtilityButton from "../components/UtilityButton";
-import { getAllUsers } from "../userService";
-import MessageField from "../components/MessageField";
-import Participant from "../components/Participant";
-import Interviewer from "../components/Interviewer";
-import SpeechToText from "../components/SpeechToText";
+import Message from "../../components/Message";
+import VideoHeader from "../../components/VideoHeader";
+import UtilityButton from "../../components/UtilityButton";
+import { getAllUsers } from "../../userService";
+import MessageField from "../../components/MessageField";
+import Participant from "../../components/Participant";
+import Interviewer from "../../components/Interviewer";
+import SpeechToText from "../../components/SpeechToText";
 import { OpenAI } from "openai";
 
 type User = {
@@ -17,8 +17,9 @@ type User = {
   username: string;
 };
 
-export default function Home() {
+export default function TechnicalView() {
   const [transcript, setTranscript] = React.useState("");
+  const [active, setActive] = React.useState(0);
   const [users, setUsers]: any = React.useState([]);
   const [chatMessages, setChatMessages] = React.useState<ChatMessage[]>([]);
   const openai = new OpenAI({
@@ -35,6 +36,7 @@ export default function Home() {
   }, [transcript]);
 
   const handleUserInput = async (message: string) => {
+    console.log(process.env.YUM);
     setChatMessages([...chatMessages, { sender: "user", content: message }]);
 
     const response = await openai.chat.completions.create({
@@ -60,14 +62,15 @@ export default function Home() {
     <main>
       <div className="grid grid-cols-4">
         <div className="col-span-3 w-full h-screen bg-blue-300 relative">
-          <div className="h-full w-full z-30">
-            <Interviewer
-              variant={1}
-              videoUrl="https://www.youtube.com/embed/YMOYM1YZ97o?si=6XLD9_zBVZz5O8iV"
-            />
-          </div>
-          <div className="w-1/3 h-1/3 bg-slate-900 absolute bottom-6 right-6 rounded-lg shadow-md">
-            <Participant name="Saahil"></Participant>
+          <div className="w-1/4 h-1/4 bg-slate-900 absolute top-6 left-6 rounded-lg shadow-md">
+            {active == 0 ? (
+              <Participant name="Saahil"></Participant>
+            ) : (
+              <Interviewer
+                variant={2}
+                videoUrl="https://www.youtube.com/embed/YMOYM1YZ97o?si=6XLD9_zBVZz5O8iV"
+              />
+            )}
           </div>
           <div className="absolute top-6 right-6 flex z-60">
             <div className="ml-4">

@@ -5,7 +5,15 @@ import RoundedBarControlGroup from "./RoundedBarControlGroup";
 import UtilityButton from "./UtilityButton";
 import { getAllUsers } from "../userService";
 
-const MessageField = () => {
+type MessageFieldProps = {
+  click: (message: string) => void;
+};
+
+const MessageField = ({ click }: MessageFieldProps) => {
+  const [message, setMessage] = React.useState("");
+  const handleChange = (e: any) => {
+    setMessage(e.target.value);
+  };
   return (
     <div
       className="
@@ -33,6 +41,7 @@ const MessageField = () => {
           h-20
           resize-none
           "
+        onChange={(e) => handleChange(e)}
       ></textarea>
       <div className="col-span-2">
         <button
@@ -62,6 +71,7 @@ const MessageField = () => {
               rounded-br-lg
               hover:bg-blue-600
             "
+          onClick={() => click(message)}
         >
           <div className="h-full flex justify-center items-center">
             <FaPaperPlane size={20} />
