@@ -22,7 +22,7 @@ const LogInForm: FC = () => {
           .LogInUser(values)
           .then((token: any) => {
             if (token.status == 200) {
-              document.cookie = `token=${token.data}`;
+              Cookies.set("token", token.data.token);
               router.push("/");
             } else {
               window.location.reload();
