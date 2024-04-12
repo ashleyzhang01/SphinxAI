@@ -51,6 +51,16 @@ class CodingTechnical(db.Model):
     def __repr__(self):
         return f"<Problem {self.name}, Language {self.language}>"
 
+class Feedback(db.Model):
+    '''Feedback model'''
+    id = db.Column(db.Integer, primary_key=True)
+    behavioral_feedback = db.Column(db.Text, nullable=True)
+    technical_feedback = db.Column(db.Text, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    category = db.Column(db.Enum(CategoryEnum), nullable=False)
+    
+    def __repr__(self):
+        return f"<User {self.user_id}, Category {self.category}>"
 
 #from .bootstrap import load_clubs, load_users, test_comments, load_scraped_clubs
 from interview import populate_db

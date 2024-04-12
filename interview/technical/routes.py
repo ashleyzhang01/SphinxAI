@@ -68,9 +68,9 @@ def feedback():
             ).first()
             transcript_feedback = ai.process_transcript_section('coding', transcript)
             test_results = data.get('test_results')
-            runtime = data.get('runtime')
+            run_time = data.get('runtime')
             feedback_response = {
-                'Feedback': f'{test_results}\nRuntime: {runtime}\n' + transcript_feedback,
+                'Feedback': f'{test_results}\nRuntime: {run_time}\n' + transcript_feedback,
                 'Question Description': question.description,
                 'Sample Solution': question.solution
             }

@@ -23,3 +23,7 @@ from interview.interviewerVideo.routes import interviewerVideo
 
 app.register_blueprint(interviewerVideo)
 
+from interview.feedback.routes import feedback
+
+app.register_blueprint(feedback)
+
