@@ -79,4 +79,8 @@ tornado = "==6.4"
 tzdata = "==2024.1"
 urllib3 = "==2.2.1"
 opencv-python = "==4.9.0.80"
+<<<<<<< HEAD
+=======
+colorama = "*"
+>>>>>>> c17b03d45ecd729b68c9aad8864dd7772e89a2ac
 flask-cors = "*"

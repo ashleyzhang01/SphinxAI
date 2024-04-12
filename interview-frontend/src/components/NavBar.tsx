@@ -10,64 +10,86 @@ import {
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { ColorButton, FreeButton } from "./Button";
+import userService from "@/userService";
+import InterviewsPage from "@/app/interviews/page";
+
 function NavBar(props: any) {
+  const handleLogout = async () => {
+    try {
+      await userService.LogOutUser();
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
   return (
-    <nav className="flex justify-between items-center h-20 bg-black">
+    <nav className="flex justify-between items-center h-20 bg-black bg-opacity-80">
       <div className="ml-10">
         <NavBarBrand color="white">
-          <Link href="/">INTERVIEW APP</Link>
+          <Link href="/home">SphinxAI</Link>
         </NavBarBrand>
       </div>
       <div className="flex items-center">{props.children}</div>
 
       <div className="flex">
         {props.userData.username ? (
-          <MenuButton>
-            <NavMenu
-              userData={props.userData}
-              color="bg-gradient-to-r from-green-400 to-green-500"
-            >
-              <DropdownItem
-                icon={
-                  <FaAddressCard className="w-5 h-5 text-black text-opacity-90" />
-                }
-              >
-                Interviews
-              </DropdownItem>
-              <DropdownItem
-                icon={
-                  <FaRuler className="w-5 h-5 text-black text-opacity-90" />
-                }
-              >
-                Analytics
-              </DropdownItem>
-              {props.userData.admin == 1 ? (
-                <DropdownItem
-                  icon={
-                    <FaPhoneSlash className="w-5 h-5 text-black text-opacity-90" />
-                  }
-                >
-                  <Link href="/doctor">Dashboard</Link>
-                </DropdownItem>
-              ) : (
-                <DropdownItem
-                  icon={
-                    <FaPhoneSlash className="w-5 h-5 text-black text-opacity-90" />
-                  }
-                >
-                  <Link href="/dashboard">Profile</Link>
-                </DropdownItem>
-              )}
-            </NavMenu>
-          </MenuButton>
+          <div className="flex">
+            <div className="mr-5">
+              <FreeButton color="black">
+                <Link href="/interviews">
+                  <div className="text-white">Interviews</div>
+                </Link>
+              </FreeButton>
+            </div>
+            <div className="mr-5">
+            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-white">Logout</button>
+            </div>
+          </div>
+          // <MenuButton>
+          //   <NavMenu
+          //     userData={props.userData}
+          //     color="bg-gradient-to-r from-green-400 to-green-500"
+          //   >
+          //     <DropdownItem
+          //       icon={
+          //         <FaAddressCard className="w-5 h-5 text-black text-opacity-90" />
+          //       }
+          //     >
+          //       Interviews
+          //     </DropdownItem>
+          //     <DropdownItem
+          //       icon={
+          //         <FaRuler className="w-5 h-5 text-black text-opacity-90" />
+          //       }
+          //     >
+          //       Analytics
+          //     </DropdownItem>
+          //     {props.userData.admin == 1 ? (
+          //       <DropdownItem
+          //         icon={
+          //           <FaPhoneSlash className="w-5 h-5 text-black text-opacity-90" />
+          //         }
+          //       >
+          //         <Link href="/doctor">Dashboard</Link>
+          //       </DropdownItem>
+          //     ) : (
+          //       <DropdownItem
+          //         icon={
+          //           <FaPhoneSlash className="w-5 h-5 text-black text-opacity-90" />
+          //         }
+          //       >
+          //         <Link href="/dashboard">Profile</Link>
+          //       </DropdownItem>
+          //     )}
+          //   </NavMenu>
+          // </MenuButton>
         ) : (
           <div className="flex">
             <div className="mr-5">
-              <ColorButton color="sky-300">
+              <FreeButton color="black">
                 <Link href="/signup">
                   <div className="text-white">Sign Up</div>
                 </Link>
-              </ColorButton>
+              </FreeButton>
             </div>
             <div className="mr-5">
               <FreeButton color="blue-500">
