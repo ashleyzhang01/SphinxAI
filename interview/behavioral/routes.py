@@ -25,16 +25,16 @@ def generate_behavioral():
         # persona / introduction
         behavioral_qs = db.session.query(Question).filter(Question.category == 'GENERAL').order_by(func.random()).limit(3).all()
         resume_qs = ['Walk me through your resume and tell me about your experiences.']
-        if 'file' not in request.files:
-            flash('No file part')
-        file = request.files['file']
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file:
-            filename = secure_filename(file.filename)
-            file.save(f'static/resumes/{filename}')
-            resume_qs = ai.resume_grill(f'./static/resumes/{filename}')
+        # if 'file' not in request.files:
+        #     flash('No file part')
+        # file = request.files['file']
+        # if file.filename == '':
+        #     flash('No selected file')
+        #     return redirect(request.url)
+        # if file:
+        #     filename = secure_filename(file.filename)
+        #     file.save(f'static/resumes/{filename}')
+        #     resume_qs = ai.resume_grill(f'./static/resumes/{filename}')
         
         questions_list = {
             # 'intro': ...,

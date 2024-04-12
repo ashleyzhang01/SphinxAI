@@ -8,18 +8,52 @@ import Interviewer from './components/Interviewer';
 import SpeechToText from './components/SpeechToText';
 import { OpenAI } from 'openai';
 
+require('dotenv').config();
+
 export default function Home() {
   const [transcript, setTranscript] = useState('');
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
-  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY || '' });
+  const [recording, setRecording] = useState(false);
+  const openai = new OpenAI({ apiKey: 'PUT API KEY HERE' || '', dangerouslyAllowBrowser: true});
+  let questionsString = '';
 
   type ChatMessage = { sender: string; content: string; };
 
+  const fetchData = async () => {
+    try {
+      const res = await fetch('http://127.0.0.1:5000/api/behavioral', {
+        method: 'POST'
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data) {
+          const behavioralQuestions = data.behavioral;
+          const questions = data.questions;
+          const resumeQuestions = data.resume;
+  
+          // Concatenating questions into a single string
+          const allQuestions = [
+            ...behavioralQuestions,
+            ...questions,
+            ...resumeQuestions
+          ];
+          questionsString = "You must ask these questions in this exact order before engaging in any other conversation: " + allQuestions.join(", ");
+        }
+      } else {
+        console.error('Failed to fetch data');
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  fetchData();
+
   useEffect(() => {
-    if (transcript !== '') {
+    if (transcript !== '' && recording) {
       handleUserInput(transcript);
     }
-  }, [transcript]);
+  }, [transcript, recording]);
 
   const handleUserInput = async (message: string) => {
     setChatMessages([...chatMessages, { sender: 'user', content: message }]);
@@ -27,16 +61,21 @@ export default function Home() {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
-      { role: "system", content: "You are a helpful assistant." },
-      { role: "user", content: message },
-      { role: "assistant", content: "" },
+        { role: "system", content: "You are an interviewer from Bain who will be conducting a consulting interview today with a potential applicant." + questionsString },
+        { role: "user", content: message }
       ],
-      stream: true,
     });
 
-    for await (const chunk of response) {
-      setChatMessages([...chatMessages, { sender: 'AI', content: chunk.choices[0]?.delta?.content || '' }]);
-    }
+    setChatMessages([...chatMessages, { sender: 'AI', content: response.choices[0].message.content || '' }]);
+  };
+
+  const startRecording = () => {
+    setRecording(true);
+    setTranscript('');
+  };
+
+  const endRecording = () => {
+    setRecording(false);
   };
 
   return (
@@ -55,7 +94,11 @@ export default function Home() {
         <div className={styles.grid}>
           <Interviewer videoUrl="https://www.youtube.com/watch?v=g6ib_I9ukZA&ab_channel=BloombergTelevision" />
           <Participant name="Participant 2" />
-          <SpeechToText onTranscriptChange={setTranscript} />
+          <SpeechToText onTranscriptChange={setTranscript} recording={recording} />
+        </div>
+        <div>
+          <button onClick={startRecording}>Start Recording</button>
+          <button onClick={endRecording}>End Recording</button>
         </div>
         <p>{transcript}</p> {/* display the transcript */}
         {chatMessages.map((message, index) => (
