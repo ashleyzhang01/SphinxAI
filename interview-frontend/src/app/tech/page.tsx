@@ -5,7 +5,6 @@ import Image from "next/image";
 import Message from "../../components/Message";
 import VideoHeader from "../../components/VideoHeader";
 import UtilityButton from "../../components/UtilityButton";
-import { getAllUsers } from "../../userService";
 import MessageField from "../../components/MessageField";
 import Participant from "../../components/Participant";
 import Interviewer from "../../components/Interviewer";
@@ -25,6 +24,7 @@ export default function TechnicalView() {
   const [transcript, setTranscript] = React.useState("");
   const [active, setActive] = React.useState(0);
   const [users, setUsers]: any = React.useState([]);
+  const [editorValue, setEditorValue] = React.useState("");
   const [chatMessages, setChatMessages] = React.useState<ChatMessage[]>([]);
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || "",
@@ -38,7 +38,12 @@ export default function TechnicalView() {
       handleUserInput(transcript);
     }
   }, [transcript]);
-
+  const handleEditorInput = (s: any) => {
+    console.log(s);
+    setEditorValue(s);
+  };
+  const qString =
+    "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n\n    public long countPairs(int n, int[][] edges) {\n";
   const handleUserInput = async (message: string) => {
     console.log(process.env.YUM);
 
@@ -61,6 +66,7 @@ export default function TechnicalView() {
       ]);
     }
   };
+  const language = "Java";
   const problemString =
     "You are given an integer n. There is an undirected graph with n nodes, numbered from 0 to n - 1. You are given a 2D integer array edges where edges[i] = [a_i, b_i] denotes that there exists an undirected edge connecting nodes a_i and b_i.\n\nReturn the number of pairs of different nodes that are unreachable from each other.\n\nExample 1:\nInput: n = 3, edges = [[0,1],[0,2],[1,2]]\nOutput: 0\nExplanation: There are no pairs of nodes that are unreachable from each other. Therefore, we return 0.\n\nExample 2:\nInput: n = 7, edges = [[0,2],[0,5],[2,4],[1,6],[5,4]]\nOutput: 14\nExplanation: There are 14 pairs of nodes that are unreachable from each other:\n[[0,1],[0,3],[0,6],[1,2],[1,3],[1,4],[1,5],[2,3],[2,6],[3,4],[3,5],[3,6],[4,6],[5,6]].\nTherefore, we return 14.\n";
   const charmander =
@@ -70,10 +76,22 @@ export default function TechnicalView() {
       <div className="grid grid-cols-4">
         <div className="col-span-3 w-full h-screen bg-gray-200 relative">
           <div className="h-full w-full py-4 flex">
-            <div className="w-5/12 h-full p-4">
-              <div className="text-left text-2xl font-bold mb-4 text-black">
+            <div className="w-5/12 h-full px-4">
+              <div className="text-left text-3xl font-bold mb-2 text-black">
                 Three Little Duckies
               </div>
+              <div className="text-left text-md font-bold mb-2 text-black bg-orange-300 w-min py-1 px-2 rounded-lg">
+                {language}
+              </div>
+              <hr
+                className="mb-2"
+                style={{
+                  color: "gray",
+                  backgroundColor: "gray",
+                  height: 1,
+                }}
+              />
+
               <div className="text-sm" style={{ whiteSpace: "pre-wrap" }}>
                 {problemString}
               </div>
@@ -85,11 +103,9 @@ export default function TechnicalView() {
               width="100%"
               fontSize={18}
               enableLiveAutocompletion
-              onChange={() => console.log("changed")}
-              name="UNIQUE_ID_OF_DIV"
-              value={
-                "import java.util.ArrayList;\nimport java.util.List;\n\nclass Solution {\n\n    public long countPairs(int n, int[][] edges) {\n"
-              }
+              onChange={handleEditorInput}
+              name="yes"
+              defaultValue={qString}
               editorProps={{ $blockScrolling: false }}
             />
           </div>

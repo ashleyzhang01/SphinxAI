@@ -3,7 +3,7 @@ import { FaPaperPlane, FaFileUpload } from "react-icons/fa";
 import Message from "./Message";
 import RoundedBarControlGroup from "./RoundedBarControlGroup";
 import UtilityButton from "./UtilityButton";
-import { getAllUsers } from "../userService";
+import userService from "../userService";
 
 type MessageFieldProps = {
   click: (message: string) => void;

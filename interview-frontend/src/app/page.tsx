@@ -5,7 +5,7 @@ import Image from "next/image";
 import Message from "../components/Message";
 import VideoHeader from "../components/VideoHeader";
 import UtilityButton from "../components/UtilityButton";
-import { getAllUsers } from "../userService";
+import userService from "../userService";
 import MessageField from "../components/MessageField";
 import Participant from "../components/Participant";
 import Interviewer from "../components/Interviewer";
