@@ -4,9 +4,15 @@ interface Interviewer {
   videoUrl: string;
 }
 
+const videoStyle = {
+  width: '50%',
+  height: '50%',
+  objectFit: 'cover'
+};
+
 const VideoPlayer: FC<Interviewer> = ({ videoUrl }) => {
   return (
-    <video controls src={videoUrl} autoPlay />
+    <video style = {videoStyle} controls src={videoUrl} autoPlay />
   );
 }
 

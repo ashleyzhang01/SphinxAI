@@ -7,6 +7,7 @@ import Participant from './components/Participant';
 import Interviewer from './components/Interviewer';
 import SpeechToText from './components/SpeechToText';
 import { OpenAI } from 'openai';
+import { text } from 'stream/consumers';
 
 require('dotenv').config();
 
@@ -14,7 +15,7 @@ export default function Home() {
   const [transcript, setTranscript] = useState('');
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [recording, setRecording] = useState(false);
-  const openai = new OpenAI({ apiKey: 'PUT API KEY HERE' || '', dangerouslyAllowBrowser: true});
+  const openai = new OpenAI({ apiKey: 'PUT_KEY_HERE' || '', dangerouslyAllowBrowser: true});
   let questionsString = '';
 
   type ChatMessage = { sender: string; content: string; };
@@ -61,12 +62,14 @@ export default function Home() {
     const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [
-        { role: "system", content: "You are an interviewer from Bain who will be conducting a consulting interview today with a potential applicant." + questionsString },
+        { role: "system", content: "You are an interviewer who will be conducting an interview today with a potential applicant." + questionsString },
         { role: "user", content: message }
       ],
     });
 
-    setChatMessages([...chatMessages, { sender: 'AI', content: response.choices[0].message.content || '' }]);
+    // setChatMessages([...chatMessages, { sender: 'AI', content: response.choices[0].message.content || '' }]);
+    // only display the two most recent messages
+    setChatMessages([{ sender: 'AI', content: response.choices[0].message.content || '' }]);
   };
 
   const startRecording = () => {
@@ -78,27 +81,38 @@ export default function Home() {
     setRecording(false);
   };
 
+  const buttonStyle = {
+    backgroundColor: 'grey',
+    color: 'white',
+    padding: '10px 10px',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    margin: '10px 10px',
+    height: '35px',
+    width: '120px',
+    textAlign: 'center',
+    fontSize: '12px',
+  }
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>Mock Zoom Call</title>
-        <meta name="description" content="Mock Zoom Call" />
+        <title>Behavioral Interview</title>
+        <meta name="description" content="Behavioral Interview" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to your mock interview
-        </h1>
 
         <div className={styles.grid}>
           <Interviewer videoUrl="https://www.youtube.com/watch?v=g6ib_I9ukZA&ab_channel=BloombergTelevision" />
-          <Participant name="Participant 2" />
+          <Participant name="Kevin Lu" />
           <SpeechToText onTranscriptChange={setTranscript} recording={recording} />
         </div>
         <div>
-          <button onClick={startRecording}>Start Recording</button>
-          <button onClick={endRecording}>End Recording</button>
+          <button style={buttonStyle} onClick={startRecording}>Start Recording</button>
+          <button style={buttonStyle} onClick={endRecording}>End Recording</button>
         </div>
         <p>{transcript}</p> {/* display the transcript */}
         {chatMessages.map((message, index) => (

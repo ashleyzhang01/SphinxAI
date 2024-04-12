@@ -48,9 +48,23 @@ const SpeechToText: React.FC<SpeechToTextProps> = ({ onTranscriptChange, recordi
     saveAs(blob, "transcript.txt");
   };
 
+  const buttonStyle = {
+    backgroundColor: 'grey',
+    color: 'white',
+    padding: '10px 10px',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    margin: '10px 10px',
+    height: '35px',
+    width: '120px',
+    textAlign: 'center',
+    fontSize: '12px',
+  }
+
   return (
     <div>
-      <button onClick={saveTranscript}>Save Response</button>
+      <button style={buttonStyle} onClick={saveTranscript}>Save Response</button>
     </div>
   );
 };
