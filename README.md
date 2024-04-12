@@ -8,7 +8,7 @@ We simulate interview processes for a variety of roles, including software engin
 We provide a full immersive interview experience, with text-to-speech and speech-to-text capabilities, along with a customizable mock interviewer, which uses AI to generate follow up responses/questions. It looks amd feels like you are conversing with a real interviewer!
 
 **Personalized AI Analysis & Training**
-We use AI to provide personalized feedback and analysis on your responses&apos correctness and clarity, helping you optimize your performance. You&apos ll also get feedback on how to make your points more clear and confident with analysis of eye-tracking, pauses, and filler words.
+We use AI to provide personalized feedback and analysis on your responses&apos correctness and clarity, helping you optimize your performance. You'll also get feedback on how to make your points more clear and confident with analysis of eye-tracking, pauses, and filler words.
 
 ## Our Tech Stack
 ![SphinxAI tech stack](https://i.imgur.com/2YYDpH1.png)
