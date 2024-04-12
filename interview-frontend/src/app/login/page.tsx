@@ -18,9 +18,6 @@ const LogIn: FC = (props: any) => {
           <div className="grid grid-cols-3 gap-4">
             <div></div>
             <Card title="Log In" titleAlign="center">
-              <div className="text-center text-black">
-                Take control of your health!
-              </div>
               <div className="mt-10">
                 <LogInForm></LogInForm>
               </div>

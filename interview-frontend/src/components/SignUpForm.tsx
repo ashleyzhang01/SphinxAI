@@ -22,8 +22,7 @@ const SignUpForm: FC = () => {
         userService
           .CreateUser(values)
           .then(() => {
-            alert("User created successfully!");
-            //router.push("/login");
+            router.push("/login");
           })
           .catch(() => {
             alert("This username or email already exists!");

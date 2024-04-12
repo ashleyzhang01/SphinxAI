@@ -59,6 +59,7 @@ def user_login():
         token = jwt.encode({'user': user.username, 'exp': datetime.utcnow() + timedelta(minutes=60)}, app.config['SECRET_KEY'])
         resp = make_response(jsonify({"login": "success",  "user": user.to_json(), "status": "200"}))
         resp.set_cookie('token', token, httponly=True)
+        print(token)
         return resp
     else:
         return jsonify({"login": "failure", "status": "400"}), 400

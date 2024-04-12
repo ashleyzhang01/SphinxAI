@@ -1,16 +1,16 @@
 // InterviewsPage.jsx
-'use client'
+"use client";
 import React, { useState } from 'react';
 import {useRouter} from "next/navigation"
 import axios from 'axios';
 import NavBar from '@/components/NavBar';
 
 const InterviewsPage = () => {
-  const [category, setCategory] = useState('');
-  const [resume, setResume] = useState<File | null>(null); 
+  const [category, setCategory] = useState("");
+  const [resume, setResume] = useState<File | null>(null);
   const router = useRouter();
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => { 
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
   };
 
@@ -24,8 +24,18 @@ const InterviewsPage = () => {
     try {
       const formData = new FormData();
       if (resume) {
-        formData.append('resume', resume);
+        formData.append("resume", resume);
       }
+      const questions: any = await axios.post(
+        "http://localhost:5000/api/behavioral",
+        formData
+      );
+      localStorage.setItem("category", category);
+      localStorage.setItem("behavioral", questions.data.behavioral);
+      localStorage.setItem("questions", questions.data.questions);
+      localStorage.setItem("resume", questions.data.resume);
+      console.log(questions);
+      // router.push('/');
       const config = {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -37,7 +47,7 @@ const InterviewsPage = () => {
       localStorage.setItem("questions", questions)
       router.push('/');
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
