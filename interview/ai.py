@@ -26,10 +26,14 @@ def resume_grill(resume):
 section_dict = {
     'about': 'This is the about/introduction section of a behavioral interview, where the interviewer asks questions to get to know the applicant more.',
     'resume': 'This is the resume section of a behavioral interview, where the interview asks about the experience of the interviewee, or the interviewee will walk the interviewer through their resume.',
-    'questions': 'This is the questions section of a behavioral interview, where the interviewee asks the interviewer questions. Provide suggestions of better questions they could possibly ask.'
+    'questions': 'This is the questions section of a behavioral interview, where the interviewee asks the interviewer questions. Provide suggestions of better questions they could possibly ask.',
+    'coding': 'This is the coding technical of a software engineering technical interview, where the interviewer gives the interviewee a coding question. The interviewee has to walk the interviewer through their thought process as they code.',
+    'quant': 'This is a technical interview for quant, where the interviewer asks quantitative questions to the interviewee. Look at the transcript, then tell the applicant if they had incorrect answers or answers that could be better.',
+    'consulting': 'This is a technical interview for consulting, where some questions are similar to behavioral questions and others are more like case questions. The case questions are sometimes hypotheticals, aiming to see how applicants can estimate or how their thought process works. Look at the transcript and give the applicant suggestions on how to make their answers better.',
+    'ib': 'This is a technical interview for investment banking, where questions are finance oriented. Look at the transcript and give the applicant suggestions on how to make their answers better.'
 }
 
-def process_transcript_section(section, eyetrack_score, transcript):
+def process_transcript_section(section, transcript, eyetrack_score=None):
     """Generates feedback for a given section of the transcript."""
     client = OpenAI(api_key=API_KEY)
     completion = client.chat.completions.create(
@@ -41,7 +45,7 @@ def process_transcript_section(section, eyetrack_score, transcript):
             #  + f"Also take in the audio score, which measures how well the user confidently spoke, which here is {audio_score}. we want this to be higher approaching 1." //to be implemented when tts and stt implemented
              + f", and the video score, which detects how confidently the user speaks, which here is {eyetrack_score}, we want this to be higher." 
             },
-            {"role": "user", "content": f'Here is the transcript of the {section} section of a behavioral interview: {transcript}'}
+            {"role": "user", "content": f'Here is the transcript of the {section} section of an interview: {transcript}'}
         ]
     )
     return completion.choices[0].message.content
