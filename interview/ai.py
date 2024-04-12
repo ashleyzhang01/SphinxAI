@@ -62,30 +62,30 @@ def ask_followup(intervieweeResponse, question):
     )
     return completion.choices[0].message.content
 
-# def determine_eyetracking_score(userImage):
-#     """Determines eyetracking_socre using how well an image of the user is looking directly at the camera. Goal is to sample images at different
-#     intervals then average these scores to get an overall user eyetracking score"""
-#     mp_face_mesh = mp.solutions.face_mesh
-#     face_mesh = mp_face_mesh.FaceMesh(static_image_mode=True, max_num_faces=1, refine_landmarks=True)
+def determine_eyetracking_score(userImage):
+    """Determines eyetracking_socre using how well an image of the user is looking directly at the camera. Goal is to sample images at different
+    intervals then average these scores to get an overall user eyetracking score"""
+    mp_face_mesh = mp.solutions.face_mesh
+    face_mesh = mp_face_mesh.FaceMesh(static_image_mode=True, max_num_faces=1, refine_landmarks=True)
 
-#     image = cv2.imread(userImage)
-#     height, width, _ = image.shape
-#     image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # BGR -> RGB
-#     results = face_mesh.process(image_rgb) # detect eyes
-#     if not results.multi_face_landmarks or (len(results.multi_face_landmarks) > 1):
-#         return 0  
+    image = cv2.imread(userImage)
+    height, width, _ = image.shape
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB) # BGR -> RGB
+    results = face_mesh.process(image_rgb) # detect eyes
+    if not results.multi_face_landmarks or (len(results.multi_face_landmarks) > 1):
+        return 0  
 
-#     #should be 1 result, if multiple ignore
-#     face_landmarks = results.multi_face_landmarks[0]
-#     #eye dist from center
-#     left_eye = face_landmarks.landmark[468]
-#     right_eye = face_landmarks.landmark[473] 
-#     eye_center_x = (left_eye.x + right_eye.x) / 2 * width
-#     eye_center_y = (left_eye.y + right_eye.y) / 2 * height
-#     center_x, center_y = width / 2, height / 2
-#     distance = np.sqrt((center_x - eye_center_x) ** 2 + (center_y - eye_center_y) ** 2)
-#     #convert dist to score
-#     max_distance = np.sqrt((width / 2) ** 2 + (height / 2) ** 2)
-#     score = max(0, 10 - (distance / max_distance) * 10)
+    #should be 1 result, if multiple ignore
+    face_landmarks = results.multi_face_landmarks[0]
+    #eye dist from center
+    left_eye = face_landmarks.landmark[468]
+    right_eye = face_landmarks.landmark[473] 
+    eye_center_x = (left_eye.x + right_eye.x) / 2 * width
+    eye_center_y = (left_eye.y + right_eye.y) / 2 * height
+    center_x, center_y = width / 2, height / 2
+    distance = np.sqrt((center_x - eye_center_x) ** 2 + (center_y - eye_center_y) ** 2)
+    #convert dist to score
+    max_distance = np.sqrt((width / 2) ** 2 + (height / 2) ** 2)
+    score = max(0, 10 - (distance / max_distance) * 10)
 
-#     return int(score)
+    return int(score)
