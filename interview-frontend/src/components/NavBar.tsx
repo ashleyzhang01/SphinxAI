@@ -41,7 +41,14 @@ function NavBar(props: any) {
               </FreeButton>
             </div>
             <div className="mr-5">
-            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md text-white">Logout</button>
+              <FreeButton color="black">
+                <Link href="/interviews">
+                  <div className="text-white">History</div>
+                </Link>
+              </FreeButton>
+            </div>
+            <div className="mr-5">
+            <button onClick={handleLogout} className="hover:bg-gray-800 px-4 py-2 rounded-md text-white">Logout</button>
             </div>
           </div>
           // <MenuButton>

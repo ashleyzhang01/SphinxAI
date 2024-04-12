@@ -1,8 +1,9 @@
 // InterviewsPage.jsx
 "use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
+import React, { useState } from 'react';
+import {useRouter} from "next/navigation"
+import axios from 'axios';
+import NavBar from '@/components/NavBar';
 
 const InterviewsPage = () => {
   const [category, setCategory] = useState("");
@@ -34,7 +35,8 @@ const InterviewsPage = () => {
       localStorage.setItem("questions", questions.data.questions);
       localStorage.setItem("resume", questions.data.resume);
       console.log(questions);
-      // router.push('/');
+
+      router.push('/');
     } catch (error) {
       console.error("Error:", error);
     }
@@ -42,19 +44,35 @@ const InterviewsPage = () => {
 
   return (
     <div>
-      <h1>Interviews</h1>
-      <div>
-        <select value={category} onChange={handleCategoryChange}>
+      <div className="h-screen">
+        <NavBar userData={{ username: "asdf" }} />
+    <div className="container text-center items-center mx-auto px-4 py-8">
+      <h1 className="text-5xl font-bold mt-4 mb-16">Start Interview</h1>
+      <div className="flex items-center mb-4">
+        <select
+          className="border border-gray-300 rounded-lg px-3 py-2 mr-4 ml-64"
+          value={category}
+          onChange={handleCategoryChange}
+        >
           <option value="">Select Category</option>
           <option value="Investment Banking">Investment Banking</option>
           <option value="Consulting">Consulting</option>
           <option value="Quant">Quant</option>
           <option value="Software Engineering">Software Engineering</option>
         </select>
-        <input type="file" onChange={handleResumeChange} />
-        <button onClick={handleNext}>Next</button>
+        <input
+          type="file"
+          onChange={handleResumeChange}
+          className="px-3 py-2 mr-0"
+        />
+        <button
+          onClick={handleNext}
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+        >
+          Next
+        </button>
       </div>
-    </div>
+    </div></div></div>
   );
 };
 

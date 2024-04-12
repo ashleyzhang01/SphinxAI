@@ -38,10 +38,10 @@ const HomeScreen = (props: any) => {
 
         <h1 className="text-6xl text-center mt-24">SphinxAI</h1>
         <h2 className="text-3xl text-center mt-4">
-          Decode Success, Revolutionize Your Hiring Game with Sphinx AI
+          Decode Success, Revolutionize Your Hiring Game
         </h2>
         <div className="flex items-center mt-16 space-x-8 ml-16 mr-16">
-          <div className="bg-gray-200 shadow-lg p-6 rounded-lg w-1/3">
+          <div className="bg-black bg-opacity-10 shadow-lg p-6 rounded-lg w-1/3">
             <h3 className="text-2xl font-semibold mb-4">
               Comprehensive Interview Simulation
             </h3>
@@ -53,7 +53,7 @@ const HomeScreen = (props: any) => {
               questions for consulting, etc.{" "}
             </p>
           </div>
-          <div className="bg-gray-200 shadow-lg p-6 rounded-lg w-1/3">
+          <div className="bg-black bg-opacity-10 shadow-lg p-6 rounded-lg w-1/3">
             <h3 className="text-2xl font-semibold mb-4">
               Full Immersive Interview Experience
             </h3>
@@ -65,14 +65,14 @@ const HomeScreen = (props: any) => {
               with a real interviewer.
             </p>
           </div>
-          <div className="bg-gray-200 shadow-lg p-6 rounded-lg w-1/3">
+          <div className="bg-black bg-opacity-10 shadow-lg p-6 rounded-lg w-1/3">
             <h3 className="text-2xl font-semibold mb-4">
               Personalized AI Analysis & Training
             </h3>
             <p>
               We use AI to provide personalized feedback and analysis on your
               responses&apos correctness and clarity, helping you optimize your
-              performance. You&aposll also get feedback on how to make your
+              performance. You&apos ll also get feedback on how to make your
               points more clear and confident with analysis of eye-tracking,
               pauses, and filler words.{" "}
             </p>
